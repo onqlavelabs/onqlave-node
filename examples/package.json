@@ -1,0 +1,19 @@
+{
+  "name": "examples",
+  "version": "0.0.1",
+  "description": "This nodejs SDK is designed to help developers easily integrate Onqlave application layer encryption (ALE) into their node backend.",
+  "main": "index.js",
+  "scripts": {
+    "debug": "node index.js"
+  },
+  "keywords": [],
+  "author": "Onqlave Labs, PTY LTD. <engineering@onqlave.com> (https://www.onqlave.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/onqlavelabs/onqlave-node/issues"
+  },
+  "homepage": "https://github.com/onqlavelabs/onqlave-node#readme",
+  "dependencies": {
+    "onqlave-node": "file:.."
+  }
+}

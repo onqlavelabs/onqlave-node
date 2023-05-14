@@ -1,0 +1,52 @@
+{
+  "name": "onqlave-node",
+  "version": "0.0.1",
+  "description": "This nodejs SDK is designed to help developers easily integrate Onqlave application layer encryption (ALE) into their node backend.",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "lib": "onqlave"
+  },
+  "files": [
+    "index.js",
+    "onqlave"
+  ],
+  "dependencies": {
+    "asynckit": "^0.4.0",
+    "axios": "^1.3.5",
+    "axios-retry": "^3.4.0",
+    "combined-stream": "^1.0.8",
+    "delayed-stream": "^1.0.0",
+    "follow-redirects": "^1.15.2",
+    "form-data": "^4.0.0",
+    "is-retry-allowed": "^2.2.0",
+    "mime-db": "^1.52.0",
+    "mime-types": "^2.1.35",
+    "node-forge": "^1.3.1",
+    "perf_hooks": "^0.0.1",
+    "proxy-from-env": "^1.1.0",
+    "regenerator-runtime": "^0.13.11",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onqlavelabs/onqlave-node.git"
+  },
+  "keywords": [
+    "onqlave",
+    "security",
+    "encryption",
+    "application level encryption",
+    "client"
+  ],
+  "author": "Onqlave Labs, PTY LTD. <engineering@onqlave.com> (https://www.onqlave.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/onqlavelabs/onqlave-node/issues"
+  },
+  "homepage": "https://github.com/onqlavelabs/onqlave-node#readme"
+}
