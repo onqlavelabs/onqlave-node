@@ -1,7 +1,7 @@
 {
   "name": "onqlave-node",
   "version": "0.0.1",
-  "description": "This nodejs SDK is designed to help developers easily integrate Onqlave application layer encryption (ALE) into their node backend.",
+  "description": "This node SDK is designed to help developers easily integrate Onqlave `Encryption As A Service` into their node backend.",
   "main": "index.js",
   "directories": {
     "example": "examples",
@@ -12,6 +12,7 @@
     "onqlave"
   ],
   "dependencies": {
+    "@stablelib/xchacha20poly1305": "^1.0.1",
     "asynckit": "^0.4.0",
     "axios": "^1.3.5",
     "axios-retry": "^3.4.0",
@@ -28,7 +29,6 @@
     "regenerator-runtime": "^0.13.11",
     "uuid": "^9.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -41,9 +41,10 @@
     "security",
     "encryption",
     "application level encryption",
+    "encryption as a service",
     "client"
   ],
-  "author": "Onqlave Labs, PTY LTD. <engineering@onqlave.com> (https://www.onqlave.com/)",
+  "author": "Onqlave Labs, PTY LTD. <product@onqlave.com> (https://www.onqlave.com/)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/onqlavelabs/onqlave-node/issues"
