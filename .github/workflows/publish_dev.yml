@@ -13,6 +13,9 @@ jobs:
   publish:
     if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: "Release PR info"
         if: github.event_name != 'workflow_dispatch'
