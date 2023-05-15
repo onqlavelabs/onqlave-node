@@ -1,6 +1,6 @@
 {
   "name": "onqlave-node",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "This node SDK is designed to help developers easily integrate Onqlave `Encryption As A Service` into their node backend.",
   "main": "index.js",
   "directories": {
