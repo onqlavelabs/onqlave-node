@@ -13,6 +13,9 @@ jobs:
   publish:
     if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: "Release PR info"
         if: github.event_name != 'workflow_dispatch'
@@ -20,9 +23,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: '16'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@onqlave'
+          always-auth: 'true'
       - run: npm ci
       - name: get-npm-version
         id: package-version
