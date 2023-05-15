@@ -110,3 +110,4 @@ example/package-lock.json
 .env
 examples/index-local.js
 .idea
+package-lock.json
