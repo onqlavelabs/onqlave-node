@@ -1,12 +1,12 @@
 name: Publish Development
 on:
-  pull_request:
-    types:
-      - closed
-    branches:
-      - dev
-    paths:
-      - 'package.json'
+#  pull_request:
+#    types:
+#      - closed
+#    branches:
+#      - dev
+#    paths:
+#      - 'package.json'
   workflow_dispatch:
 
 jobs:
@@ -28,7 +28,6 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@onqlavelabs'
           always-auth: 'true'
-          scope: '@onqlave/onqlave-node'
       - run: npm ci
       - name: Publish the release to NPM
         run: npm publish
