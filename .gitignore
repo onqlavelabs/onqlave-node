@@ -109,3 +109,4 @@ node_modules/
 example/package-lock.json
 .env
 examples/index-local.js
+.idea
