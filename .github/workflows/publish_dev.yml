@@ -8,6 +8,9 @@ on:
 #    paths:
 #      - 'package.json'
   workflow_dispatch:
+  push:
+    branches:
+      - dev
 
 jobs:
   publish:
