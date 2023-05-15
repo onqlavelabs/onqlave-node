@@ -28,7 +28,7 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@onqlavelabs'
           always-auth: 'true'
-          scope: '@octocat/onqlave-node'
+          scope: '@onqlave/onqlave-node'
       - run: npm ci
       - name: Publish the release to NPM
         run: npm publish
