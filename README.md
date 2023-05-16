@@ -33,7 +33,7 @@ npm install @onqlavelabs/onqlave-node
 
 ```
 ### Requirements
-- Node 7.6.0 and above
+- Node 16.0.0 and above
 
 ### Configuration
 
