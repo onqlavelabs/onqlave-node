@@ -79,7 +79,7 @@ const service = new Encryption(arxOption, credentialOption, retryOption);
 
 const plainData = Buffer.from("This is the plain data");
 const additionalData = Buffer.from("This is to authenticated not to encrypt"); //This can be an arbitrary piece of information you can use to for added security purpose.
-cipherData := await service.Encrypt(plainData, associatedData)
+const cipherData = await service.Encrypt(plainData, associatedData);
 ```
 
 
@@ -91,9 +91,9 @@ To encrypt data, use the **Decrypt(cipherData, associatedData)** method of the `
 //Initilise the new encryption service using configurations as per [Usage]
 const service = new Encryption(arxOption, credentialOption, retryOption);
 
-const cipherData := Buffer.from("this data is already encrypted using `Encrypt` method")
+const cipherData = Buffer.from("this data is already encrypted using `Encrypt` method")
 const additionalData = Buffer.from("This is to authenticated not to encrypt"); //This can be an arbitrary piece of information you can use to for added security purpose.
-plainData := await service.Decrypt(cipherData, associatedData)
+const plainData = await service.Decrypt(cipherData, associatedData);
 ```
 
 ### Encrypt Stream
@@ -108,7 +108,7 @@ const service = new Encryption(arxOption, credentialOption, retryOption);
 
 const plainStream = createReadStream("<file or network stream you are wishing to encrypt>", { highWaterMark: 64 * 1024 });
 const cipherStream = createWriteStream("<file or network stream you are whishing to stream the encrypted data to>", { encoding: 'binary' });
-const associatedData := Buffer.from("this data needs to be authenticated, but not encrypted") //This can be an arbitrary piece of information you can use to for added security purpose.
+const associatedData = Buffer.from("this data needs to be authenticated, but not encrypted"); //This can be an arbitrary piece of information you can use to for added security purpose.
 await service.encryptStream(plainStream, cipherStream, additionalData);
 plainStream.close();
 cipherStream.close();
@@ -125,7 +125,7 @@ const service = new Encryption(arxOption, credentialOption, retryOption);
 
 const cipherStream = createReadStream("<file or network stream you are wishing to decrypt>", { encoding: 'binary' });
 const plainStream = createWriteStream("<file or network stream you are whishing to stream the decrypted data to>", { highWaterMark: 64 * 1024 });
-const associatedData := Buffer.from("this data needs to be authenticated, but not encrypted") //This can be an arbitrary piece of information you can use to for added security purpose.
+const associatedData = Buffer.from("this data needs to be authenticated, but not encrypted"); //This can be an arbitrary piece of information you can use to for added security purpose.
 await service.decryptStream(cipherStream, plainStream, additionalData);
 plainStream.close();
 cipherStream.close();
