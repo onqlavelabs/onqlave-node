@@ -1,4 +1,4 @@
-const { Encryption, withCredential, withRetry, withArx, Credential, RetrySettings } = require('onqlave-node');
+const { Encryption, withCredential, withRetry, withArx, Credential, RetrySettings } = require('@onqlavelabs/onqlave-node');
 const { createReadStream, createWriteStream } = require('fs');
 
 function delay(time) {
