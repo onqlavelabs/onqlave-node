@@ -28,16 +28,16 @@ This node SDK is designed to help developers easily integrate Onqlave `Encryptio
 - Encrypt/Decrypt stream of data
 
 ## Installation
+```sh
+npm install @onqlavelabs/onqlave-node
 
+```
 ### Requirements
 - Node 7.6.0 and above
 
 ### Configuration
 
-```sh
-npm install onqlave-node
 
-```
 ### Usage
 
 To use this SDK, you firstly need to obtain credential to access an Onqlave Arx by signing up to [Onqlave](https://onqlave.com) and following instruction to create your 1st Onqlave Arx.
@@ -47,13 +47,13 @@ The [Onqlave Node](https://github.com/onqlavelabs/onqlave-node) module is used t
 To use this module, the Onqlave client must first be initialized as follows.
 
 ```javascript
-const { Encryption, withCredential, withRetry, withArx, Credential, RetrySettings } = require('onqlave-node');
+const { Encryption, withCredential, withRetry, withArx, Credential, RetrySettings } = require('@onqlavelabs/onqlave-node');
 const { createReadStream, createWriteStream } = require('fs');
 ```
 Or using ES modules
 
 ```javascript
-import { Encryption, withCredential, withRetry, withArx, Credential, RetrySettings }  from 'onqlave-node';
+import { Encryption, withCredential, withRetry, withArx, Credential, RetrySettings }  from '@onqlavelabs/onqlave-node';
 import { createReadStream, createWriteStream } from 'fs';
 
 const arxOption = withArx("<arx_url>"); //This is the Arx URL retruned of the API Key created during setup. Keep in in a safe place.
