@@ -1,20 +1,24 @@
 name: Publish Development
 on:
-  pull_request:
-    types:
-      - closed
+#  pull_request:
+#    types:
+#      - closed
+#    branches:
+#      - dev
+#    paths:
+#      - 'package.json'
+  workflow_dispatch:
+  push:
     branches:
       - dev
-    paths:
-      - 'package.json'
-  workflow_dispatch:
 
 jobs:
   publish:
-    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
+#    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
+      id-token: write
       packages: write
     steps:
       - name: "Release PR info"
