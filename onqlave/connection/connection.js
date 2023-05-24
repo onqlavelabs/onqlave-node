@@ -56,7 +56,7 @@ class Connection {
       'ONQLAVE-DIGEST': digest,
       'ONQLAVE-VERSION': '0.1',
       'ONQLAVE-REQUEST-TIME': now,
-      'ONQLAVE-SIGANTURE': signature,
+      'ONQLAVE-SIGNATURE': signature,
     };
 
     try {
