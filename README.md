@@ -84,7 +84,7 @@ const cipherData = await service.Encrypt(plainData, associatedData);
 
 
 ### Decrypt
-To encrypt data, use the **Decrypt(cipherData, associatedData)** method of the `Encryption` service. The **cipherData** parameter is the `Buffer` representation of data you are wishing to decrypt (previousely encrypted). The **associatedData** parameter the `Buffer` representation of associated data which can be used to improve the authenticity of the data (it is not mandatory), as shown below.
+To decrypt data, use the **Decrypt(cipherData, associatedData)** method of the `Encryption` service. The **cipherData** parameter is the `Buffer` representation of data you are wishing to decrypt (previousely encrypted). The **associatedData** parameter the `Buffer` representation of associated data which can be used to improve the authenticity of the data (it is not mandatory), as shown below.
 
 ```javascript
 
@@ -116,7 +116,7 @@ cipherStream.close();
 
 
 ### Decrypt Stream
-To encrypt data, use the **decryptStream(cipherStream, plainStream, associatedData)** method of the `Encryption` service. The **cipherStream** parameter is the `ReadStream` stream of data you are wishing to decrypt and it was originally encrypted using [EncryptStream](#encrypt-stream). The **plainStream** parameter is the `WriteStream` stream you are wishing to write the plain data back to. The **associatedData** parameter the `Buffer` representation of associated data which can be used to improve the authenticity of the data (it is not mandatory), as shown below.
+To decrypt data, use the **decryptStream(cipherStream, plainStream, associatedData)** method of the `Encryption` service. The **cipherStream** parameter is the `ReadStream` stream of data you are wishing to decrypt and it was originally encrypted using [EncryptStream](#encrypt-stream). The **plainStream** parameter is the `WriteStream` stream you are wishing to write the plain data back to. The **associatedData** parameter the `Buffer` representation of associated data which can be used to improve the authenticity of the data (it is not mandatory), as shown below.
 
 ```javascript
 
