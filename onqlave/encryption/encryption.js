@@ -1,21 +1,21 @@
-const { NewKeyManager, KeyManagerConfiguration } = require("../keymanager/keymanagerclient");
-const { Credential } = require("../credentials/credential");
-const { RetrySettings, INVALID_ARX } = require("../connection/client");
-const { IDService } = require("../keymanager/services/idgenservice");
-const { CPRNGService } = require("../keymanager/services/cprngservice");
-const { NewAEADGCMKeyFactory } = require("../keymanager/factories/aesgcmfactory");
-const { NewXChaCha20Poly1305KeyFactory } = require("../keymanager/factories/xchacha20poly1305factory");
-const { NewAES128GCMKeyOperation } = require("../keymanager/operations/aes128gcmoperation");
-const { NewAES256GCMKeyOperation } = require("../keymanager/operations/aes256gcmoperation");
-const { NewXChaCha20Poly1305KeyOperation } = require("../keymanager/operations/xchacha20poly1305operation");
-const { Algorithms } = require("../keymanager/types/types");
-const { OnqlaveError, ErrorCodes } = require("../errors/errors");
-const { performance } = require("perf_hooks");
-const { Readable, Writable } = require("stream");
-const { BufferWritable } = require("./bufferwritable");
-const { BufferEncryptedStreamProcessor, EncryptedStreamProcessor } = require("./encryptedstreamprocessor");
-const { PlainStreamProcessor } = require("./plainstreamprocessort");
-const { AlgorithmSerialiser } = require("./algorithmserialiser");
+const {NewKeyManager, KeyManagerConfiguration} = require("../keymanager/keymanagerclient");
+const {Credential} = require("../credentials/credential");
+const {RetrySettings, INVALID_ARX} = require("../connection/client");
+const {IDService} = require("../keymanager/services/idgenservice");
+const {CPRNGService} = require("../keymanager/services/cprngservice");
+const {NewAEADGCMKeyFactory} = require("../keymanager/factories/aesgcmfactory");
+const {NewXChaCha20Poly1305KeyFactory} = require("../keymanager/factories/xchacha20poly1305factory");
+const {NewAES128GCMKeyOperation} = require("../keymanager/operations/aes128gcmoperation");
+const {NewAES256GCMKeyOperation} = require("../keymanager/operations/aes256gcmoperation");
+const {NewXChaCha20Poly1305KeyOperation} = require("../keymanager/operations/xchacha20poly1305operation");
+const {Algorithms} = require("../keymanager/types/types");
+const {OnqlaveError, ErrorCodes} = require("../errors/errors");
+const {performance} = require("perf_hooks");
+const {Readable, Writable} = require("stream");
+const {BufferWritable} = require("./bufferwritable");
+const {BufferEncryptedStreamProcessor, EncryptedStreamProcessor} = require("./encryptedstreamprocessor");
+const {PlainStreamProcessor} = require("./plainstreamprocessort");
+const {AlgorithmSerialiser} = require("./algorithmserialiser");
 
 class Encryption {
 	constructor(...opts) {
@@ -55,7 +55,7 @@ class Encryption {
 				throw new Error("cipherStream must be an instance of Writable");
 			}
 
-			const { algorithm, primitive } = await this.initEncryptOperation(operation);
+			const {algorithm, primitive} = await this.initEncryptOperation(operation);
 			const processor = new PlainStreamProcessor(cipherStream);
 			await processor.writeHeader(algorithm);
 			await this._readFromStream(plainStream, async (chunk) => {
@@ -67,7 +67,7 @@ class Encryption {
 			});
 			this.logger.info(`[onqlave] SDK: ${operation} - Encrypted plain data: operation took ${performance.now() - start} ms`);
 		} catch (error) {
-			throw OnqlaveError.newOnqlaveErrorWrapf(ErrorCodes.Server, error, `[onqlave] SDK: ${operation} - Faild encrypting plain data`);
+			throw OnqlaveError.newOnqlaveErrorWrapf(ErrorCodes.Server, error, `[onqlave] SDK: ${operation} - Failed encrypting plain data`);
 		}
 	}
 
@@ -115,7 +115,7 @@ class Encryption {
 		this.logger.info(`Encrypting operation: ${operation}`);
 
 		try {
-			const { algorithm, primitive } = await this.initEncryptOperation(operation);
+			const {algorithm, primitive} = await this.initEncryptOperation(operation);
 			const cipherData = primitive.encrypt(plainData, associatedData);
 			const cipherStream = new BufferWritable();
 			const processor = new PlainStreamProcessor(cipherStream);
@@ -124,7 +124,8 @@ class Encryption {
 			this.logger.info(`[onqlave] SDK: ${operation} - Encrypted plain data: operation took ${performance.now() - start} ms`);
 			return cipherStream.buffer();
 		} catch (error) {
-			throw OnqlaveError.newOnqlaveErrorWrapf(ErrorCodes.Server, error, `[onqlave] SDK: ${operation} - Faild encrypting plain data`);
+			console.log(error);
+			throw OnqlaveError.newOnqlaveErrorWrapf(ErrorCodes.Server, error, `[onqlave] SDK: ${operation} - Failed encrypting plain data`);
 		}
 	}
 
@@ -150,7 +151,7 @@ class Encryption {
 
 	async initEncryptOperation(operation) {
 		try {
-			const { edk, dk, algo } = await this.keyManager.fetchEncryptionKey();
+			const {edk, dk, algo} = await this.keyManager.fetchEncryptionKey();
 			const ops = this.operations[algo];
 			if (!ops) {
 				throw OnqlaveError.newOnqlaveErrorWrapf(ErrorCodes.Server, null, `[onqlave] SDK: ${operation} - Invalid encryption operation`);
@@ -159,7 +160,7 @@ class Encryption {
 			const key = await factory.newKeyFromData(ops, dk);
 			const primitive = await factory.primitive(key);
 			const algorithm = new AlgorithmSerialiser(0, algo, edk);
-			return { algorithm, primitive };
+			return {algorithm, primitive};
 		} catch (error) {
 			throw OnqlaveError.newOnqlaveErrorWrapf(ErrorCodes.Server, error, `[onqlave] SDK: ${operation} - Faild encrypting plain data`);
 		}
@@ -196,9 +197,8 @@ class Encryption {
 	}
 }
 
-module.exports = { 
-	Encryption,
-	NewEncryption: (...opts) => {
+module.exports = {
+	Encryption, NewEncryption: (...opts) => {
 		return new Encryption(opts);
-	} 
+	}
 };

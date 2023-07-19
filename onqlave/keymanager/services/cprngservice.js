@@ -1,8 +1,10 @@
-const { random } =require("node-forge");
+const forge = require("node-forge");
 
 class CPRNGService {
 	getRandomBytes(size) {
-		return random.getBytesSync(size);
+		const randomBytes = forge.random.getBytesSync(size);
+		const randomBuffer = Buffer.from(randomBytes, "binary");
+		return randomBuffer;
 	}
 
 	getRandomUint32() {

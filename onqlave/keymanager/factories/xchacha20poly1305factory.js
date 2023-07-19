@@ -1,6 +1,6 @@
-const { NewXChaCha20Poly1305AEAD } = require("../primitives/xchacha20poly1305aead");
-const { KeyMaterialType, XchaCha20Poly1305KeyVersion, KeyFactory } = require("../types/types");
-const { NewXChaCha20Poly1305Key, XChaCha20Poly1305KeyData } = require("../keys/xchacha20poly1305");
+const {NewXChaCha20Poly1305AEAD} = require("../primitives/xchacha20poly1305aead");
+const {KeyMaterialType, XchaCha20Poly1305KeyVersion, KeyFactory} = require("../types/types");
+const {NewXChaCha20Poly1305Key, XChaCha20Poly1305KeyData} = require("../keys/xchacha20poly1305");
 
 class XChaCha20Poly1305KeyFactory extends KeyFactory {
 	constructor(idService, randomService) {
@@ -10,29 +10,28 @@ class XChaCha20Poly1305KeyFactory extends KeyFactory {
 	}
 
 	async newKey(operation) {
-		const format = operation.GetFormat();
+		const format = operation.getFormat();
 		this.validateKeyFormat(format);
-		const keyValue = this.randomService.GetRandomBytes(format.Size());
+		const keyValue = this.randomService.getRandomBytes(format.size());
 		const key = NewXChaCha20Poly1305Key(
-			this.idService.NewKeyID(),
+			this.idService.newKeyID(),
 			operation,
 			new XChaCha20Poly1305KeyData(keyValue, KeyMaterialType.SYMMETRIC, XchaCha20Poly1305KeyVersion)
 		);
 		return Promise.resolve(key);
 	}
 
-	async newKeyFromData(operation, keyData) {
-		const format = operation.GetFormat();
+	newKeyFromData(operation, keyData) {
+		const format = operation.getFormat();
 		this.validateKeyFormat(format);
-		const key = NewXChaCha20Poly1305Key(
-			this.idService.NewKeyID(),
+		return NewXChaCha20Poly1305Key(
+			this.idService.newKeyID(),
 			operation,
 			new XChaCha20Poly1305KeyData(keyData, KeyMaterialType.SYMMETRIC, XchaCha20Poly1305KeyVersion)
 		);
-		return Promise.resolve(key);
 	}
 
-	async primitive(operation, key) {
+	async primitive(key) {
 		const value = this.validateKey(key);
 		const aead = NewXChaCha20Poly1305AEAD(value, this.randomService);
 		if (!aead) {
@@ -44,8 +43,8 @@ class XChaCha20Poly1305KeyFactory extends KeyFactory {
 
 	validateKey(key) {
 		const keyData = key.getData();
-		this.validateKeyVersion(keyData.GetVersion(), XchaCha20Poly1305KeyVersion);
-		const value = keyData.GetValue();
+		this.validateKeyVersion(keyData.getVersion(), XchaCha20Poly1305KeyVersion);
+		const value = keyData.getValue();
 		if (!value) {
 			throw new Error("xchachapoly1305factory: invalid key value");
 		}
@@ -57,7 +56,7 @@ class XChaCha20Poly1305KeyFactory extends KeyFactory {
 	}
 
 	validateKeyFormat(format) {
-		if (keySize !== 32) {
+		if (format.size() !== 32) {
 			throw new Error("xchachapoly1305factory: invalid key size");
 		}
 	}
