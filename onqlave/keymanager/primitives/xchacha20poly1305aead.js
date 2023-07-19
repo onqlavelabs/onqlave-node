@@ -18,7 +18,7 @@ class XChaCha20Poly1305AEAD extends AEAD {
 		this.validateXChaChaKeySize(this.key.length);
 		const cipher = new XChaCha20Poly1305(this.key);
 		const nonce = this.randomService.getRandomBytes(24);
-		const ciphertext = cipher.encrypt(nonce, plaintext, associatedData);
+		const ciphertext = cipher.seal(nonce, plaintext, associatedData);
 		if (!ciphertext) {
 			throw new Error("xchacha20poly1305: encryption failed");
 		}
@@ -33,7 +33,7 @@ class XChaCha20Poly1305AEAD extends AEAD {
 		const cipher = new XChaCha20Poly1305(this.key);
 		const nonce = ciphertext.slice(0, 24);
 		const ct = ciphertext.slice(24);
-		const plaintext = cipher.decrypt(nonce, ct, associatedData);
+		const plaintext = cipher.open(nonce, ct, associatedData);
 
 		if (!plaintext) {
 			throw new Error("xchacha20poly1305: decryption failed");
