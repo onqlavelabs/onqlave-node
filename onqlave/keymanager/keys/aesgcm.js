@@ -1,55 +1,55 @@
-const { Key, KeyData } = require('../types/types')
+const { Key, KeyData } = require("../types/types");
 
 class AesGcmKey extends Key {
-    constructor(keyID, operation, data) {
-        super();
-        this.keyID = keyID;
-        this.operation = operation;
-        this.data = data;
-    }
+	constructor(keyID, operation, data) {
+		super();
+		this.keyID = keyID;
+		this.operation = operation;
+		this.data = data;
+	}
 
-    getKeyID() {
-        return this.keyID;
-    }
+	getKeyID() {
+		return this.keyID;
+	}
 
-    getOperation() {
-        return this.operation;
-    }
+	getOperation() {
+		return this.operation;
+	}
 
-    getData() {
-        return this.data;
-    }
+	getData() {
+		return this.data;
+	}
 }
 
 class AesGcmKeyData extends KeyData {
-    constructor(value, keyMaterialType, version) {
-        super();
-        this.value = value;
-        this.keyMaterialType = keyMaterialType;
-        this.version = version;
-    }
+	constructor(value, keyMaterialType, version) {
+		super();
+		this.value = value;
+		this.keyMaterialType = keyMaterialType;
+		this.version = version;
+	}
 
-    fromValue() {
-        return null;
-    }
+	fromValue() {
+		return null;
+	}
 
-    getValue() {
-        return this.value;
-    }
+	getValue() {
+		return this.value;
+	}
 
-    getKeyMaterialType() {
-        return this.keyMaterialType;
-    }
+	getKeyMaterialType() {
+		return this.keyMaterialType;
+	}
 
-    getVersion() {
-        return this.version;
-    }
+	getVersion() {
+		return this.version;
+	}
 }
 
 module.exports =  {
-    AesGcmKey,
-    AesGcmKeyData,
-    NewAesGcmKey: (id, operation, data) => {
-        return new AesGcmKey(id, operation, data);
-    },
-}
+	AesGcmKey,
+	AesGcmKeyData,
+	NewAesGcmKey: (id, operation, data) => {
+		return new AesGcmKey(id, operation, data);
+	},
+};

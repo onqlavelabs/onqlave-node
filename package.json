@@ -30,7 +30,9 @@
     "uuid": "^9.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint onqlave/**",
+    "lint:fix": "eslint onqlave/** --fix"
   },
   "repository": {
     "type": "git",
@@ -49,5 +51,8 @@
   "bugs": {
     "url": "https://github.com/onqlavelabs/onqlave-node/issues"
   },
-  "homepage": "https://github.com/onqlavelabs/onqlave-node#readme"
+  "homepage": "https://github.com/onqlavelabs/onqlave-node#readme",
+  "devDependencies": {
+    "eslint": "^8.45.0"
+  }
 }

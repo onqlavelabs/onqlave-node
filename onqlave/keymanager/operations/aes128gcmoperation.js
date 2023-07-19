@@ -1,24 +1,24 @@
-const { KeyOperation, AESGCMKeyVersion, AesGcmKeyFormat } = require('../types/types')
+const { KeyOperation, AESGCMKeyVersion, AesGcmKeyFormat } = require("../types/types");
 
 class Aes128GcmKeyOperation extends KeyOperation {
-    constructor(factory) {
-        super();
-        this.factory = factory;
-        this.format = new AesGcmKeyFormat(16, AESGCMKeyVersion);
-    }
+	constructor(factory) {
+		super();
+		this.factory = factory;
+		this.format = new AesGcmKeyFormat(16, AESGCMKeyVersion);
+	}
 
-    getFormat() {
-        return this.format;
-    }
+	getFormat() {
+		return this.format;
+	}
 
-    getFactory() {
-        return this.factory;
-    }
+	getFactory() {
+		return this.factory;
+	}
 }
 
 module.exports =  {
-    Aes128GcmKeyOperation,
-    NewAES128GCMKeyOperation: (factory) => {
-        return new Aes128GcmKeyOperation(factory);
-    },
+	Aes128GcmKeyOperation,
+	NewAES128GCMKeyOperation: (factory) => {
+		return new Aes128GcmKeyOperation(factory);
+	},
 };

@@ -1,290 +1,290 @@
 
 class TypeResolver {
-    constructor() { }
+	constructor() { }
 
-    serialise(name, input) {
-        // ...
-    }
+	serialise(name, input) {
+		// ...
+	}
 
-    deserialise(name, input) {
-        // ...
-    }
+	deserialise(name, input) {
+		// ...
+	}
 }
 
 class KeyManagerClient {
-    fetchEncryptionKey() {
-        //
-    }
-    fetchDecryptionKey(edk) {
-        //
-    }
+	fetchEncryptionKey() {
+		//
+	}
+	fetchDecryptionKey(edk) {
+		//
+	}
 }
 
 class OnqlaveStructure {
-    constructor() {
-        this.embeded = {};
-        this.edk = [];
-    }
+	constructor() {
+		this.embeded = {};
+		this.edk = [];
+	}
 }
 
 class WrappingKeyFactory {
-    constructor() { }
+	constructor() { }
 
-    primitive(operation) {
-        // ...
-    }
+	primitive(operation) {
+		// ...
+	}
 }
 
 class KeyFactory {
-    constructor() { }
+	constructor() { }
 
-    newKey(operation) {
-        // ...
-    }
+	newKey(operation) {
+		// ...
+	}
 
-    newKeyFromData(operation, keyData) {
-        // ...
-    }
+	newKeyFromData(operation, keyData) {
+		// ...
+	}
 
-    primitive(key) {
-        // ...
-    }
+	primitive(key) {
+		// ...
+	}
 }
 
 const AlgorithmType = {
-    'unknown_algorithm': 0,
-    'aes-gcm-128': 1,
-    'aes-gcm-256': 2,
-    'xcha-cha-20-poly-1305': 3,
+	"unknown_algorithm": 0,
+	"aes-gcm-128": 1,
+	"aes-gcm-256": 2,
+	"xcha-cha-20-poly-1305": 3,
 };
 
 const AlgorithmNames = {
-    0: "unknown_algorithm",
-    1: "aes-gcm-128",
-    2: "aes-gcm-256",
-    3: "xcha-cha-20-poly-1305",
-}
+	0: "unknown_algorithm",
+	1: "aes-gcm-128",
+	2: "aes-gcm-256",
+	3: "xcha-cha-20-poly-1305",
+};
 
 const Algorithms = {
-    Unknown: "unknown_algorithm",
-    Aesgcm128: "aes-gcm-128",
-    Aesgcm256: "aes-gcm-256",
-    XChacha20poly1305: "xcha-cha-20-poly-1305",
-    RsaSsapkcs12048sha256f4: "RSA_SSA_PKCS1_2048_SHA256_F4",
+	Unknown: "unknown_algorithm",
+	Aesgcm128: "aes-gcm-128",
+	Aesgcm256: "aes-gcm-256",
+	XChacha20poly1305: "xcha-cha-20-poly-1305",
+	RsaSsapkcs12048sha256f4: "RSA_SSA_PKCS1_2048_SHA256_F4",
 };
 
 class WrappingKeyOperation {
-    constructor() { }
+	constructor() { }
 
-    getFormat() {
-        // ...
-    }
+	getFormat() {
+		// ...
+	}
 
-    getFactory() {
-        // ...
-    }
+	getFactory() {
+		// ...
+	}
 }
 
 class KeyOperation {
-    constructor() { }
+	constructor() { }
 
-    getFormat() {
-        // ...
-    }
+	getFormat() {
+		// ...
+	}
 
-    getFactory() {
-        // ...
-    }
+	getFactory() {
+		// ...
+	}
 }
 
 class KeyFormat {
-    constructor() { }
+	constructor() { }
 
-    size() {
-        // ...
-    }
+	size() {
+		// ...
+	}
 }
 
 class AEAD {
-    constructor() { }
+	constructor() { }
 
-    encrypt(plaintext, associatedData) {
-        // ...
-    }
+	encrypt(plaintext, associatedData) {
+		// ...
+	}
 
-    decrypt(ciphertext, associatedData) {
-        // ...
-    }
+	decrypt(ciphertext, associatedData) {
+		// ...
+	}
 }
 
 class Unwrapping {
-    constructor() { }
+	constructor() { }
 
-    unwrapKey(wdk, epk, fp, password) {
-        // ...
-    }
+	unwrapKey(wdk, epk, fp, password) {
+		// ...
+	}
 }
 
 class KeyID {
-    constructor() { }
+	constructor() { }
 }
 
 class AlgorithmSerializer {
-    constructor() { }
+	constructor() { }
 
-    serialise() {
-        // ...
-    }
+	serialise() {
+		// ...
+	}
 }
 
 class AlgorithmDeserializer {
-    constructor() { }
+	constructor() { }
 
-    deserialise(buffer) {
-        // ...
-    }
+	deserialise(buffer) {
+		// ...
+	}
 
-    key() {
-        // ...
-    }
+	key() {
+		// ...
+	}
 
-    version() {
-        // ...
-    }
+	version() {
+		// ...
+	}
 
-    algorithm() {
-        // ...
-    }
+	algorithm() {
+		// ...
+	}
 }
 
 class KeyData {
-    constructor() { }
+	constructor() { }
 
-    getValue() {
-        // ...
-    }
+	getValue() {
+		// ...
+	}
 
-    fromValue(data) {
-        // ...
-    }
+	fromValue(data) {
+		// ...
+	}
 
-    getKeyMaterialType() {
-        // ...
-    }
+	getKeyMaterialType() {
+		// ...
+	}
 
-    getVersion() {
-        // ...
-    }
+	getVersion() {
+		// ...
+	}
 }
 
 class Key {
-    constructor() { }
+	constructor() { }
 
-    getKeyID() {
-        // ...
-    }
+	getKeyID() {
+		// ...
+	}
 
-    getOperation() {
-        // ...
-    }
+	getOperation() {
+		// ...
+	}
 
-    getData() {
-        // ...
-    }
+	getData() {
+		// ...
+	}
 }
 
-const AESGCMKeyVersion = 0
-const RSASSAPKCS1KeyVersion = 0
-const XchaCha20Poly1305KeyVersion = 0
+const AESGCMKeyVersion = 0;
+const RSASSAPKCS1KeyVersion = 0;
+const XchaCha20Poly1305KeyVersion = 0;
 
 const HashType = {
-    UNKNOWN_HASH: 0,
-    SHA1: 1,
-    SHA384: 2,
-    SHA256: 3,
-    SHA512: 4,
-    SHA224: 5,
+	UNKNOWN_HASH: 0,
+	SHA1: 1,
+	SHA384: 2,
+	SHA256: 3,
+	SHA512: 4,
+	SHA224: 5,
 };
 
 const HashTypeName = [
-    'UNKNOWN_HASH',
-    'SHA1',
-    'SHA384',
-    'SHA256',
-    'SHA512',
-    'SHA224',
-]
+	"UNKNOWN_HASH",
+	"SHA1",
+	"SHA384",
+	"SHA256",
+	"SHA512",
+	"SHA224",
+];
 
 const KeyMaterialType = {
-    UNKNOWN_KEYMATERIAL: 0,
-    SYMMETRIC: 1,
-    ASYMMETRIC_PRIVATE: 2,
-    ASYMMETRIC_PUBLIC: 3,
-    REMOTE: 4,
+	UNKNOWN_KEYMATERIAL: 0,
+	SYMMETRIC: 1,
+	ASYMMETRIC_PRIVATE: 2,
+	ASYMMETRIC_PUBLIC: 3,
+	REMOTE: 4,
 };
 
 class AesGcmKeyFormat extends KeyFormat {
-    constructor(size, version) {
-        super();
-        this.keySize = size;
-        this.version = version;
-    }
+	constructor(size, version) {
+		super();
+		this.keySize = size;
+		this.version = version;
+	}
 
-    size() {
-        return this.keySize;
-    }
+	size() {
+		return this.keySize;
+	}
 }
 
 class XChaChaKeyFormat extends KeyFormat {
-    constructor(size, version) {
-        super();
-        this.keySize = size;
-        this.version = version;
-    }
+	constructor(size, version) {
+		super();
+		this.keySize = size;
+		this.version = version;
+	}
 
-    size() {
-        return this.keySize;
-    }
+	size() {
+		return this.keySize;
+	}
 }
 
 class RsaSsaPkcs1KeyFormat extends KeyFormat {
-    constructor(version, hash) {
-        super();
-        this.version = version;
-        this.hash = hash;
-    }
+	constructor(version, hash) {
+		super();
+		this.version = version;
+		this.hash = hash;
+	}
 
-    size() {
-        return -1;
-    }
+	size() {
+		return -1;
+	}
 }
 
 module.exports =  {
-    TypeResolver,
-    OnqlaveStructure,
-    WrappingKeyFactory,
-    KeyFactory,
-    WrappingKeyOperation,
-    KeyOperation,
-    KeyFormat,
-    AEAD,
-    Unwrapping,
-    KeyID,
-    AlgorithmSerializer,
-    AlgorithmDeserializer,
-    KeyData,
-    Key,
-    AlgorithmType,
-    HashType,
-    HashTypeName,
-    KeyMaterialType,
-    AESGCMKeyVersion,
-    RSASSAPKCS1KeyVersion,
-    XchaCha20Poly1305KeyVersion,
-    AlgorithmNames,
-    Algorithms,
-    AesGcmKeyFormat,
-    RsaSsaPkcs1KeyFormat,
-    XChaChaKeyFormat,
-    KeyManagerClient,
+	TypeResolver,
+	OnqlaveStructure,
+	WrappingKeyFactory,
+	KeyFactory,
+	WrappingKeyOperation,
+	KeyOperation,
+	KeyFormat,
+	AEAD,
+	Unwrapping,
+	KeyID,
+	AlgorithmSerializer,
+	AlgorithmDeserializer,
+	KeyData,
+	Key,
+	AlgorithmType,
+	HashType,
+	HashTypeName,
+	KeyMaterialType,
+	AESGCMKeyVersion,
+	RSASSAPKCS1KeyVersion,
+	XchaCha20Poly1305KeyVersion,
+	AlgorithmNames,
+	Algorithms,
+	AesGcmKeyFormat,
+	RsaSsaPkcs1KeyFormat,
+	XChaChaKeyFormat,
+	KeyManagerClient,
 };
