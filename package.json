@@ -8,6 +8,12 @@
     "example": "examples",
     "lib": "onqlave"
   },
+  "files": [
+    ".github",
+    ".idea",
+    "examples",
+    "node_modules"
+  ],
   "dependencies": {
     "@stablelib/xchacha20poly1305": "^1.0.1",
     "asynckit": "^0.4.0",
