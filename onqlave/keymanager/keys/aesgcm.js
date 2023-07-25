@@ -1,29 +1,53 @@
-const { Key, KeyData } = require("../types/types");
+const { Key, KeyData, KeyOperation } = require("../types/types");
 
-class AesGcmKey extends Key {
+/**
+ * @class
+ * @implements {Key}
+ */
+class AesGcmKey {
+	/**
+	 *
+	 * @param keyID {number}
+	 * @param operation {KeyOperation}
+	 * @param data {AesGcmKeyData}
+	 */
 	constructor(keyID, operation, data) {
-		super();
 		this.keyID = keyID;
 		this.operation = operation;
 		this.data = data;
 	}
 
+	/**
+	 *
+	 * @returns {number}
+	 */
 	getKeyID() {
 		return this.keyID;
 	}
 
+	/**
+	 *
+	 * @returns {KeyOperation}
+	 */
 	getOperation() {
 		return this.operation;
 	}
 
+	/**
+	 *
+	 * @returns {KeyData}
+	 */
 	getData() {
 		return this.data;
 	}
 }
 
-class AesGcmKeyData extends KeyData {
+/**
+ * @class
+ * @implements {KeyData}
+ */
+class AesGcmKeyData {
 	constructor(value, keyMaterialType, version) {
-		super();
 		this.value = value;
 		this.keyMaterialType = keyMaterialType;
 		this.version = version;
@@ -33,6 +57,10 @@ class AesGcmKeyData extends KeyData {
 		return null;
 	}
 
+	/**
+	 *
+	 * @returns {Uint8Array | Buffer}
+	 */
 	getValue() {
 		return this.value;
 	}
@@ -41,6 +69,10 @@ class AesGcmKeyData extends KeyData {
 		return this.keyMaterialType;
 	}
 
+	/**
+	 *
+	 * @returns {number}
+	 */
 	getVersion() {
 		return this.version;
 	}

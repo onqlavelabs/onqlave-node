@@ -1,290 +1,482 @@
-
-class TypeResolver {
-	constructor() { }
-
-	serialise(name, input) {
-		// ...
-	}
-
-	deserialise(name, input) {
-		// ...
-	}
-}
-
+/**
+ * @interface
+ * @typedef {import('node-forge').Bytes} Bytes
+ */
 class KeyManagerClient {
-	fetchEncryptionKey() {
-		//
-	}
-	fetchDecryptionKey(edk) {
-		//
-	}
+    fetchEncryptionKey() {
+        //
+    }
+
+    /**
+     *
+     * @param edk {Uint8Array}
+     * @returns {Promise<Uint8Array | Buffer | Bytes>}
+     */
+    fetchDecryptionKey(edk) {
+        //
+    }
 }
 
+/**
+ * @interface
+ */
 class OnqlaveStructure {
-	constructor() {
-		this.embeded = {};
-		this.edk = [];
-	}
+    constructor() {
+        this.embeded = {};
+        this.edk = [];
+    }
 }
 
+/**
+ * @interface
+ */
 class WrappingKeyFactory {
-	constructor() { }
+    constructor() {
+    }
 
-	primitive(operation) {
-		// ...
-	}
+    /**
+     *
+     * @param operation {WrappingKeyOperation}
+     * @returns {Promise<Unwrapping>}
+     */
+    primitive(operation) {
+        // ...
+    }
 }
 
+/**
+ * @interface
+ */
 class KeyFactory {
-	constructor() { }
+    constructor() {
+    }
 
-	newKey(operation) {
-		// ...
-	}
+    /**
+     *
+     * @param operation {KeyOperation}
+     * @returns {Key}
+     */
+    newKey(operation) {
+        // ...
+    }
 
-	newKeyFromData(operation, keyData) {
-		// ...
-	}
+    /**
+     *
+     * @param operation {KeyOperation}
+     * @param keyData {Uint8Array | Buffer}
+     * @returns {Key}
+     */
+    newKeyFromData(operation, keyData) {
+        // ...
+    }
 
-	primitive(key) {
-		// ...
-	}
+    /**
+     *
+     * @param key {Key}
+     * @returns {AEAD}
+     */
+    primitive(key) {
+        // ...
+    }
 }
 
+/**
+ *
+ * @enum {number}
+ */
 const AlgorithmType = {
-	"unknown_algorithm": 0,
-	"aes-gcm-128": 1,
-	"aes-gcm-256": 2,
-	"xcha-cha-20-poly-1305": 3,
+    "unknown_algorithm": 0,
+    "aes-gcm-128": 1,
+    "aes-gcm-256": 2,
+    "xcha-cha-20-poly-1305": 3,
 };
 
+/**
+ *
+ * @enum {string}
+ */
 const AlgorithmNames = {
-	0: "unknown_algorithm",
-	1: "aes-gcm-128",
-	2: "aes-gcm-256",
-	3: "xcha-cha-20-poly-1305",
+    0: "unknown_algorithm",
+    1: "aes-gcm-128",
+    2: "aes-gcm-256",
+    3: "xcha-cha-20-poly-1305",
 };
 
+/**
+ *
+ * @enum {string}
+ */
 const Algorithms = {
-	Unknown: "unknown_algorithm",
-	Aesgcm128: "aes-gcm-128",
-	Aesgcm256: "aes-gcm-256",
-	XChacha20poly1305: "xcha-cha-20-poly-1305",
-	RsaSsapkcs12048sha256f4: "RSA_SSA_PKCS1_2048_SHA256_F4",
+    Unknown: "unknown_algorithm",
+    Aesgcm128: "aes-gcm-128",
+    Aesgcm256: "aes-gcm-256",
+    XChacha20poly1305: "xcha-cha-20-poly-1305",
+    RsaSsapkcs12048sha256f4: "RSA_SSA_PKCS1_2048_SHA256_F4",
 };
 
+/**
+ * @interface
+ */
 class WrappingKeyOperation {
-	constructor() { }
+    constructor() {
+    }
 
-	getFormat() {
-		// ...
-	}
+    getFormat() {
+        // ...
+    }
 
-	getFactory() {
-		// ...
-	}
+    getFactory() {
+        // ...
+    }
 }
 
+/**
+ * @interface
+ */
 class KeyOperation {
-	constructor() { }
+    constructor() {
+    }
 
-	getFormat() {
-		// ...
-	}
+    /**
+     *
+     * @returns {KeyFormat}
+     */
+    getFormat() {
+        // ...
+    }
 
-	getFactory() {
-		// ...
-	}
+    /**
+     *
+     * @returns {KeyFactory}
+     */
+    getFactory() {
+        // ...
+    }
 }
 
+/**
+ * @interface
+ */
 class KeyFormat {
-	constructor() { }
+    constructor() {
+    }
 
-	size() {
-		// ...
-	}
+    size() {
+        // ...
+    }
 }
 
+/**
+ * @interface
+ */
 class AEAD {
-	constructor() { }
+    constructor() {
+    }
 
-	encrypt(plaintext, associatedData) {
-		// ...
-	}
+    /**
+     *
+     * @param plaintext {Uint8Array | Buffer}
+     * @param associatedData {Uint8Array | Buffer}
+     * @returns {Uint8Array | Buffer}
+     */
+    encrypt(plaintext, associatedData) {
+        // ...
+    }
 
-	decrypt(ciphertext, associatedData) {
-		// ...
-	}
+    /**
+     *
+     * @param ciphertext {Uint8Array | Buffer}
+     * @param associatedData {Uint8Array | Buffer}
+     * @returns {Uint8Array | Buffer}
+     */
+    decrypt(ciphertext, associatedData) {
+        // ...
+    }
 }
 
+/**
+ * @interface
+ */
 class Unwrapping {
-	constructor() { }
+    /**
+     *
+     */
+    constructor() {
+    }
 
-	unwrapKey(wdk, epk, fp, password) {
-		// ...
-	}
+    /**
+     * @param wdk {Uint8Array}
+     * @param epk {Uint8Array}
+     * @param fp {Uint8Array}
+     * @param password {Uint8Array}
+     * @returns {Uint8Array | Buffer | Bytes}
+     *
+     */
+    unwrapKey(wdk, epk, fp, password) {
+        // ...
+    }
 }
 
+/**
+ * @interface
+ */
 class KeyID {
-	constructor() { }
+    constructor() {
+    }
 }
 
+/**
+ * @interface
+ */
 class AlgorithmSerializer {
-	constructor() { }
+    constructor() {
+    }
 
-	serialise() {
-		// ...
-	}
+    serialise() {
+        // ...
+    }
 }
 
+/**
+ * @interface
+ */
 class AlgorithmDeserializer {
-	constructor() { }
+    constructor() {
+    }
 
-	deserialise(buffer) {
-		// ...
-	}
+    deserialise(buffer) {
+        // ...
+    }
 
-	key() {
-		// ...
-	}
+    key() {
+        // ...
+    }
 
-	version() {
-		// ...
-	}
+    version() {
+        // ...
+    }
 
-	algorithm() {
-		// ...
-	}
+    algorithm() {
+        // ...
+    }
 }
 
+/**
+ * @interface
+ */
 class KeyData {
-	constructor() { }
+    constructor() {
+    }
 
-	getValue() {
-		// ...
-	}
+    getValue() {
+        // ...
+    }
 
-	fromValue(data) {
-		// ...
-	}
+    fromValue(data) {
+        // ...
+    }
 
-	getKeyMaterialType() {
-		// ...
-	}
+    getKeyMaterialType() {
+        // ...
+    }
 
-	getVersion() {
-		// ...
-	}
+    getVersion() {
+        // ...
+    }
 }
 
+/**
+ * @interface
+ */
 class Key {
-	constructor() { }
+    constructor() {
+    }
 
-	getKeyID() {
-		// ...
-	}
+    getKeyID() {
+        // ...
+    }
 
-	getOperation() {
-		// ...
-	}
+    getOperation() {
+        // ...
+    }
 
-	getData() {
-		// ...
-	}
+    getData() {
+        // ...
+    }
 }
 
+/**
+ *
+ * @type {number}
+ */
 const AESGCMKeyVersion = 0;
+/**
+ *
+ * @type {number}
+ */
 const RSASSAPKCS1KeyVersion = 0;
+/**
+ *
+ * @type {number}
+ */
 const XchaCha20Poly1305KeyVersion = 0;
 
+/**
+ *
+ * @enum {number}
+ */
 const HashType = {
-	UNKNOWN_HASH: 0,
-	SHA1: 1,
-	SHA384: 2,
-	SHA256: 3,
-	SHA512: 4,
-	SHA224: 5,
+    UNKNOWN_HASH: 0,
+    SHA1: 1,
+    SHA384: 2,
+    SHA256: 3,
+    SHA512: 4,
+    SHA224: 5,
 };
 
 const HashTypeName = [
-	"UNKNOWN_HASH",
-	"SHA1",
-	"SHA384",
-	"SHA256",
-	"SHA512",
-	"SHA224",
+    "UNKNOWN_HASH",
+    "SHA1",
+    "SHA384",
+    "SHA256",
+    "SHA512",
+    "SHA224",
 ];
 
+/**
+ *
+ * @enum {number}
+ */
 const KeyMaterialType = {
-	UNKNOWN_KEYMATERIAL: 0,
-	SYMMETRIC: 1,
-	ASYMMETRIC_PRIVATE: 2,
-	ASYMMETRIC_PUBLIC: 3,
-	REMOTE: 4,
+    UNKNOWN_KEYMATERIAL: 0,
+    SYMMETRIC: 1,
+    ASYMMETRIC_PRIVATE: 2,
+    ASYMMETRIC_PUBLIC: 3,
+    REMOTE: 4,
 };
 
-class AesGcmKeyFormat extends KeyFormat {
-	constructor(size, version) {
-		super();
-		this.keySize = size;
-		this.version = version;
-	}
+/**
+ * @class
+ * @implements {KeyFormat}
+ */
+class AesGcmKeyFormat {
 
-	size() {
-		return this.keySize;
-	}
+    /**
+     *
+     * @param size {number}
+     * @param version {number}
+     */
+    constructor(size, version) {
+        /**
+         *
+         * @type {number}
+         */
+        this.keySize = size;
+        /**
+         *
+         * @type {number}
+         */
+        this.version = version;
+    }
+
+    /**
+     *
+     * @returns {number}
+     */
+    size() {
+        return this.keySize;
+    }
 }
 
-class XChaChaKeyFormat extends KeyFormat {
-	constructor(size, version) {
-		super();
-		this.keySize = size;
-		this.version = version;
-	}
+/**
+ * @class
+ * @implements {KeyFormat}
+ */
+class XChaChaKeyFormat {
+    /**
+     *
+     * @param size {number}
+     * @param version {number}
+     */
+    constructor(size, version) {
+        /**
+         *
+         * @type {number}
+         */
+        this.keySize = size;
+        /**
+         *
+         * @type {number}
+         */
+        this.version = version;
+    }
 
-	size() {
-		return this.keySize;
-	}
+    /**
+     *
+     * @returns {number}
+     */
+    size() {
+        return this.keySize;
+    }
 }
 
-class RsaSsaPkcs1KeyFormat extends KeyFormat {
-	constructor(version, hash) {
-		super();
-		this.version = version;
-		this.hash = hash;
-	}
+/**
+ * @class
+ * @implements {KeyFormat}
+ */
+class RsaSsaPkcs1KeyFormat {
+    /**
+     *
+     * @param version {number}
+     * @param hashType {HashType}
+     */
+    constructor(version, hashType) {
+        /**
+         *
+         * @type {number}
+         */
+        this.version = version;
+        /**
+         *
+         * @type {HashType}
+         */
+        this.hash = hashType;
+    }
 
-	size() {
-		return -1;
-	}
+    /**
+     *
+     * @returns {number}
+     */
+    size() {
+        return -1;
+    }
 }
 
-module.exports =  {
-	TypeResolver,
-	OnqlaveStructure,
-	WrappingKeyFactory,
-	KeyFactory,
-	WrappingKeyOperation,
-	KeyOperation,
-	KeyFormat,
-	AEAD,
-	Unwrapping,
-	KeyID,
-	AlgorithmSerializer,
-	AlgorithmDeserializer,
-	KeyData,
-	Key,
-	AlgorithmType,
-	HashType,
-	HashTypeName,
-	KeyMaterialType,
-	AESGCMKeyVersion,
-	RSASSAPKCS1KeyVersion,
-	XchaCha20Poly1305KeyVersion,
-	AlgorithmNames,
-	Algorithms,
-	AesGcmKeyFormat,
-	RsaSsaPkcs1KeyFormat,
-	XChaChaKeyFormat,
-	KeyManagerClient,
+module.exports = {
+    OnqlaveStructure,
+    WrappingKeyFactory,
+    KeyFactory,
+    WrappingKeyOperation,
+    KeyOperation,
+    KeyFormat,
+    AEAD,
+    Unwrapping,
+    KeyID,
+    AlgorithmSerializer,
+    AlgorithmDeserializer,
+    KeyData,
+    Key,
+    AlgorithmType,
+    HashType,
+    HashTypeName,
+    KeyMaterialType,
+    AESGCMKeyVersion,
+    RSASSAPKCS1KeyVersion,
+    XchaCha20Poly1305KeyVersion,
+    AlgorithmNames,
+    Algorithms,
+    AesGcmKeyFormat,
+    RsaSsaPkcs1KeyFormat,
+    XChaChaKeyFormat,
+    KeyManagerClient,
 };

@@ -21,6 +21,11 @@ class RetrySettings {
 }
 
 class Client {
+	/**
+	 *
+	 * @param retrySettings {RetrySettings}
+	 * @param logger
+	 */
 	constructor(retrySettings = new RetrySettings(), logger = console) {
 		this.retrySettings = retrySettings;
 		this.logger = logger;
