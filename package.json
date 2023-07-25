@@ -8,10 +8,6 @@
     "example": "examples",
     "lib": "onqlave"
   },
-  "files": [
-    "index.js",
-    "onqlave"
-  ],
   "dependencies": {
     "@stablelib/xchacha20poly1305": "^1.0.1",
     "asynckit": "^0.4.0",
@@ -33,7 +29,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint onqlave/**",
-    "lint:fix": "eslint onqlave/** --fix"
+    "lint:fix": "eslint onqlave/** --fix",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
