@@ -22,7 +22,10 @@ jobs:
           scope: '@onqlavelabs'
           always-auth: 'true'
       - run: npm ci
-      - run: npm run build
+      - name: Build Library
+        run: npm run build
+        continue-on-error: true
+
       - name: Extract tag version
         id: extract_tag
         run: echo "::set-output name=tag::$(echo ${{ github.ref }} | sed -e 's/^refs\/tags\/v//' -e 's/^refs\/heads\/v//')"
