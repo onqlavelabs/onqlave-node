@@ -14,8 +14,8 @@ const Resources = {
 };
 
 class KeyManagerConfiguration {
-	constructor(credential, retry, arxurl) {
-		this.arxURL = arxurl;
+	constructor(credential, retry, arxUrl) {
+		this.arxURL = arxUrl;
 		this.credential = credential;
 		this.retry = retry;
 	}
@@ -115,7 +115,7 @@ class KeyManager extends KeyManagerClient {
 		}
 		const dk = await primitive.unwrapKey(wdk, epk, fp, password);
 		if (!dk) {
-			throw OnqlaveError.newOnqlaveErrorWrapf(ErrorCodes.Server, null, `[onqlave] SDK: ${operation} - Faild unwrapping encrytion key`);
+			throw OnqlaveError.newOnqlaveErrorWrapf(ErrorCodes.Server, null, `[onqlave] SDK: ${operation} - Failed unwrapping encryption key`);
 		}
 		return dk;
 	}
