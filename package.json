@@ -23,14 +23,18 @@
     "uuid": "^9.0.0"
   },
   "scripts": {
+    "clean": "rm -rf lib",
+    "build": "npm run clean && tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint onqlave/**",
-    "lint:fix": "eslint onqlave/** --fix",
-    "build": "tsc"
+    "lint:fix": "eslint onqlave/** --fix"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/onqlavelabs/onqlave-node.git"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
     "onqlave",
