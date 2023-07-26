@@ -1,6 +1,5 @@
 const forge = require("node-forge");
 const { Unwrapping } = require("../types/types");
-const crypto = require("crypto");
 
 class RSASSAPKCS1SHA extends Unwrapping {
 	constructor(hashFunc, hashID, randomService) {

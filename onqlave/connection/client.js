@@ -1,7 +1,7 @@
 const axios = require("axios");
 const axiosRetry = require("axios-retry");
 const { performance } = require("perf_hooks");
-const {RetrySettings} = require("../contracts/retrysettings")
+const {RetrySettings} = require("../contracts/retrysettings");
 
 
 class Client {
