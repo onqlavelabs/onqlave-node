@@ -1,8 +1,7 @@
-const {RetrySettings} = require("./retrysettings");
-const {Credential} = require("./credential");
-
 /**
  * @class
+ * @typedef {import('./credential').Credential} Credential
+ * @typedef {import('./retrysettings').RetrySettings} RetrySettings
  */
 class Configuration {
 	/**

@@ -2,14 +2,33 @@ const {NewClient} = require("./client");
 const {OnqlaveError, ErrorCodes} = require("../errors/errors");
 const {performance} = require("perf_hooks");
 
+/**
+ * @class
+ * @typedef {import('../utils/hasher').Hasher} Hasher
+ * @typedef {import('../contracts/configuration').Configuration} Configuration
+ * @typedef {import('../contracts/requests/requests').EncryptionOpenRequest} EncryptionOpenRequest
+ * @typedef {import('../contracts/requests/requests').DecryptionOpenRequest} DecryptionOpenRequest
+ */
 class Connection {
+	/**
+	 *
+	 * @param configuration {Configuration}
+	 * @param hasher {Hasher}
+	 * @param logger
+	 */
 	constructor(configuration, hasher, logger = console) {
-		this.client = NewClient(configuration.retry, logger);
+		this.client = NewClient(configuration.retrySettings, logger);
 		this.hasher = hasher;
 		this.logger = logger;
 		this.configuration = configuration;
 	}
 
+	/**
+	 *
+	 * @param resource {string}
+	 * @param body {EncryptionOpenRequest | DecryptionOpenRequest}
+	 * @returns {Promise<any>}
+	 */
 	async post(resource, body) {
 		const operation = "Post";
 		const start = performance.now();
@@ -55,7 +74,8 @@ class Connection {
 }
 
 module.exports = {
+	Connection,
 	NewConnection: (configuration, hasher, logger = console) => {
-		return new Connection(configuration, hasher, logger = console);
+		return new Connection(configuration, hasher, logger);
 	}
 };

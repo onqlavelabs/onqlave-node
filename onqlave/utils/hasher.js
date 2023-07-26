@@ -2,19 +2,34 @@
 
 const forge = require("node-forge");
 
+/**
+ * @class
+ * @typedef {import('../contracts/requests/requests').EncryptionOpenRequest} EncryptionOpenRequest
+ * @typedef {import('../contracts/requests/requests').DecryptionOpenRequest} DecryptionOpenRequest
+ */
 class Hasher {
 	constructor() { }
 
-	async digest(body) {
+	/**
+	 *
+	 * @param body {EncryptionOpenRequest | DecryptionOpenRequest}
+	 * @returns {string}
+	 */
+	digest(body) {
 		const content = body.getContent();
 		const digestHash = forge.md.sha512.create();
 		digestHash.update(content);
 		const sum = digestHash.digest().getBytes();
-		const digest = `SHA512=${Buffer.from(sum, "binary").toString("base64")}`;
-		return digest;
+		return `SHA512=${Buffer.from(sum, "binary").toString("base64")}`;
 	}
 
-	async sign(headers, signingKey) {
+	/**
+	 *
+	 * @param headers {Object.<string, string>}
+	 * @param signingKey {string}
+	 * @returns {string}
+	 */
+	sign(headers, signingKey) {
 		const signatureHash = forge.hmac.create();
 		signatureHash.start("sha512", signingKey);
 
@@ -28,8 +43,7 @@ class Hasher {
 		}
 
 		const sum = signatureHash.digest().getBytes();
-		const signature = `HMAC-SHA512=${Buffer.from(sum, "binary").toString("base64")}`;
-		return signature;
+		return `HMAC-SHA512=${Buffer.from(sum, "binary").toString("base64")}`;
 	}
 }
 

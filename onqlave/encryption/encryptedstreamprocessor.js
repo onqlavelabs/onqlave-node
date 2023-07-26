@@ -1,28 +1,25 @@
-const { Readable, } = require("stream");
-const {AlgorithmDeserialiser}  = require("./algorithmdeserialiser");
+const {Readable,} = require("stream");
+const {AlgorithmDeserialiser} = require("./algorithmdeserialiser");
 
 class EncryptedStreamProcessor {
 	constructor() {
 		this._buffer = null;
 	}
+
 	readHeader(chunk) {
 		const headerLenBuffer = chunk.slice(0, 4);
 		if (headerLenBuffer === null) {
 			throw new Error("Invalid cipher data");
 		}
-		try {
-			const headerLen = headerLenBuffer.readUInt32BE(0);
-			const headerBuffer = chunk.slice(4, headerLen);
-			if (headerBuffer === null) {
-				throw new Error("Invalid cipher data");
-			}
-			const algorithm = new AlgorithmDeserialiser();
-			algorithm.deserialize(Buffer.concat([headerLenBuffer, headerBuffer]));
-			this._buffer = chunk.slice(headerLen);
-			return algorithm;
-		} catch (error) {
-			throw error;
+		const headerLen = headerLenBuffer.readUInt32BE(0);
+		const headerBuffer = chunk.slice(4, headerLen);
+		if (headerBuffer === null) {
+			throw new Error("Invalid cipher data");
 		}
+		const algorithm = new AlgorithmDeserialiser();
+		algorithm.deserialize(Buffer.concat([headerLenBuffer, headerBuffer]));
+		this._buffer = chunk.slice(headerLen);
+		return algorithm;
 	}
 
 	readPacket(chunk) {
@@ -57,18 +54,14 @@ class BufferEncryptedStreamProcessor {
 		if (headerLenBuffer === null) {
 			throw new Error("Invalid cipher data");
 		}
-		try {
-			const headerLen = headerLenBuffer.readUInt32BE(0);
-			const headerBuffer = await this.readNBytes(headerLen - 4);
-			if (headerBuffer === null) {
-				throw new Error("Invalid cipher data");
-			}
-			const algorithm = new AlgorithmDeserialiser();
-			algorithm.deserialize(Buffer.concat([headerLenBuffer, headerBuffer]));
-			return algorithm;
-		} catch (error) {
-			throw error;
+		const headerLen = headerLenBuffer.readUInt32BE(0);
+		const headerBuffer = await this.readNBytes(headerLen - 4);
+		if (headerBuffer === null) {
+			throw new Error("Invalid cipher data");
 		}
+		const algorithm = new AlgorithmDeserialiser();
+		algorithm.deserialize(Buffer.concat([headerLenBuffer, headerBuffer]));
+		return algorithm;
 	}
 
 	async readPacket() {

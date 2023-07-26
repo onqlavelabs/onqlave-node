@@ -1,4 +1,4 @@
-const {NewKeyManager} = require("../keymanager/keymanagerclient");
+const { KeyManager} = require("../keymanager/keymanagerclient");
 const {Configuration} = require("../contracts/configuration");
 const {IDService} = require("../keymanager/services/idgenservice");
 const {CPRNGService} = require("../keymanager/services/cprngservice");
@@ -15,9 +15,12 @@ const {BufferWritable} = require("./bufferwritable");
 const {BufferEncryptedStreamProcessor, EncryptedStreamProcessor} = require("./encryptedstreamprocessor");
 const {PlainStreamProcessor} = require("./plainstreamprocessort");
 const {AlgorithmSerialiser} = require("./algorithmserialiser");
-const {Credential} = require("../contracts/credential");
-const {RetrySettings} = require("../contracts/retrysettings");
 
+/**
+ * @class
+ * @typedef {import('../contracts/credential').Credential} Credential
+ * @typedef {import('../contracts/retrysettings').RetrySettings} RetrySettings
+ */
 class Encryption {
 	/**
      *
@@ -31,7 +34,7 @@ class Encryption {
 		this.logger = console;
 		const randomService = new CPRNGService();
 		const idService = new IDService(randomService);
-		const keyManager = NewKeyManager(configuration, randomService, idService);
+		const keyManager = new KeyManager(configuration, randomService);
 		const aeadGcmKeyFactory = NewAEADGCMKeyFactory(idService, randomService);
 		const xchachaKeyFactory = NewXChaCha20Poly1305KeyFactory(idService, randomService);
 
@@ -67,7 +70,6 @@ class Encryption {
 				if (chunk) {
 					const cipherData = primitive.encrypt(chunk, associatedData);
 					await processor.writePacket(cipherData);
-				} else {
 				}
 			});
 			this.logger.info(`[onqlave] SDK: ${operation} - Encrypted plain data: operation took ${performance.now() - start} ms`);
@@ -201,7 +203,7 @@ class Encryption {
 	}
 
 	_readFromStream(readableStream, callback) {
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve) => {
 			readableStream.on("data", async (chunk) => {
 				readableStream.pause();
 				await callback(chunk);
@@ -215,7 +217,5 @@ class Encryption {
 }
 
 module.exports = {
-	Encryption, NewEncryption: (...opts) => {
-		return new Encryption(opts);
-	}
+	Encryption
 };
