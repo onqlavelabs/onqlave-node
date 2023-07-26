@@ -1,13 +1,7 @@
-const { Encryption } = require('./onqlave/encryption/encryption')
-const { withCredential, withRetry, withArx } = require('./onqlave/encryption/options')
-const { Credential } = require('./onqlave/credentials/credential')
-const { RetrySettings } = require('./onqlave/connection/client')
+const {Encryption} = require('./onqlave/encryption/encryption')
+const {Credential} = require("./onqlave/contracts/credential")
+const {RetrySettings} = require("./onqlave/contracts/retrysettings")
 
-module.exports =  {
-    Encryption,
-    withArx,
-    withCredential,
-    withRetry,
-    Credential,
-    RetrySettings,
+module.exports = {
+    Encryption, Credential, RetrySettings,
 };

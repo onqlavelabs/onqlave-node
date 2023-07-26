@@ -1,22 +1,6 @@
-const { NewClient } = require("./client");
-const { OnqlaveError, ErrorCodes } = require("../errors/errors");
-const { performance } = require("perf_hooks");
-
-class Configuration {
-	constructor(credential, retry, arxUrl, arxId) {
-		this.credential = credential;
-		this.retry = retry;
-		this.arxUrl = arxUrl;
-		this.arxId = arxId;
-	}
-}
-
-class Credential {
-	constructor(accessKey, signingKey) {
-		this.accessKey = accessKey;
-		this.signingKey = signingKey;
-	}
-}
+const {NewClient} = require("./client");
+const {OnqlaveError, ErrorCodes} = require("../errors/errors");
+const {performance} = require("perf_hooks");
 
 class Connection {
 	constructor(configuration, hasher, logger = console) {
@@ -71,9 +55,6 @@ class Connection {
 }
 
 module.exports = {
-	Connection,
-	Configuration,
-	Credential,
 	NewConnection: (configuration, hasher, logger = console) => {
 		return new Connection(configuration, hasher, logger = console);
 	}

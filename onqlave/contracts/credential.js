@@ -1,7 +1,28 @@
+/**
+ * @class
+ */
 class Credential {
+	/**
+     *
+     * @param accessKey {string}
+     * @param signingKey {string}
+     * @param secretKey {string}
+     */
 	constructor(accessKey, signingKey, secretKey) {
+		/**
+         *
+         * @type {string}
+         */
 		this.accessKey = accessKey;
+		/**
+         *
+         * @type {string}
+         */
 		this.signingKey = signingKey;
+		/**
+         *
+         * @type {string}
+         */
 		this.secretKey = secretKey;
 	}
 
@@ -19,4 +40,6 @@ class Credential {
 	}
 }
 
-module.exports = { Credential };
+module.exports = {
+	Credential
+};

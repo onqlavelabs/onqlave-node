@@ -1,5 +1,4 @@
-const { NewConnection, Configuration } = require("../connection/connection");
-const { Credential } = require("../credentials/credential");
+const { NewConnection } = require("../connection/connection");
 const { NewHasher } = require("../utils/hasher");
 const { NewRSASSAPKCS1SHAKeyFactory } = require("./factories/rsassapkcs1shafactory");
 const { NewRSASSAPKCS1SHA2562048KeyOperation } = require("./operations/rsassapkcs1shaoperation");
@@ -13,26 +12,12 @@ const Resources = {
 	DECRYPT_RESOURCE_URL: "oe2/keymanager/decrypt"
 };
 
-class KeyManagerConfiguration {
-	constructor(credential, retry, arxUrl) {
-		this.arxURL = arxUrl;
-		this.credential = credential;
-		this.retry = retry;
-	}
-}
-
 class KeyManager extends KeyManagerClient {
 	constructor(configuration, randomService) {
 		super();
 		const hasher = NewHasher();
-		const index = configuration.arxURL.lastIndexOf("/");
-		const config = new Configuration(new Credential(configuration.credential.accessKey, configuration.credential.signingKey, null),
-			configuration.retry,
-			configuration.arxURL.substring(0, index),
-			configuration.arxURL.substring(index + 1)
-		);
-		//console.log(configuration);
-		const httpClient = NewConnection(config, hasher, console);
+		console.log(configuration);
+		const httpClient = NewConnection(configuration, hasher, console);
 		const rsaSSAPKCS1KeyFactory = NewRSASSAPKCS1SHAKeyFactory(randomService);
 		const operations = {
 			[Algorithms.RsaSsapkcs12048sha256f4]: NewRSASSAPKCS1SHA2562048KeyOperation(rsaSSAPKCS1KeyFactory)
@@ -123,7 +108,6 @@ class KeyManager extends KeyManagerClient {
 
 
 module.exports = {
-	KeyManagerConfiguration,
 	KeyManager,
 	NewKeyManager: (configuration, randomService) => {
 		return new KeyManager(configuration, randomService);
