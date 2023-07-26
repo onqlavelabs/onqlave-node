@@ -1,6 +1,5 @@
-const {NewKeyManager, KeyManagerConfiguration} = require("../keymanager/keymanagerclient");
-const {Credential} = require("../credentials/credential");
-const {RetrySettings, INVALID_ARX} = require("../connection/client");
+const {NewKeyManager } = require("../keymanager/keymanagerclient");
+const {Configuration} = require("../contracts/configuration")
 const {IDService} = require("../keymanager/services/idgenservice");
 const {CPRNGService} = require("../keymanager/services/cprngservice");
 const {NewAEADGCMKeyFactory} = require("../keymanager/factories/aesgcmfactory");
@@ -18,15 +17,12 @@ const {PlainStreamProcessor} = require("./plainstreamprocessort");
 const {AlgorithmSerialiser} = require("./algorithmserialiser");
 
 class Encryption {
-    constructor(...opts) {
-        const options = new KeyManagerConfiguration(new Credential(), new RetrySettings(), INVALID_ARX);
-        for (const o of opts) {
-            o.apply(options);
-        }
+    constructor(credential,retrySettings,arxURL, debug) {
+        const configuration = new Configuration (credential, retrySettings,arxURL, debug);
         this.logger = console;
         const randomService = new CPRNGService();
         const idService = new IDService(randomService);
-        const keyManager = NewKeyManager(options, randomService, idService);
+        const keyManager = NewKeyManager(configuration, randomService, idService);
         const aeadGcmKeyFactory = NewAEADGCMKeyFactory(idService, randomService);
         const xchachaKeyFactory = NewXChaCha20Poly1305KeyFactory(idService, randomService);
 

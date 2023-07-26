@@ -1,24 +1,8 @@
 const axios = require("axios");
 const axiosRetry = require("axios-retry");
 const { performance } = require("perf_hooks");
+const {RetrySettings} = require("../contracts/retrysettings")
 
-class RetrySettings {
-	constructor(count = 3, waitTime = 400, maxWaitTime = 2000) {
-		this.count = count;
-		this.waitTime = waitTime;
-		this.maxWaitTime = maxWaitTime;
-	}
-
-	valid() {
-		if (this.count <= 0) {
-			throw new Error("invalid retry count");
-		}
-		if (this.waitTime <= 0) {
-			throw new Error("invalid wait time");
-		}
-		return null;
-	}
-}
 
 class Client {
 	constructor(retrySettings = new RetrySettings(), logger = console) {
@@ -33,7 +17,7 @@ class Client {
 
 		try {
 			axiosRetry(axios, {
-				retries: this.retrySettings.count, retryDelay: (retryCount) => {
+				retries: this.retrySettings.maxRetries, retryDelay: (retryCount) => {
 					return retryCount * this.retrySettings.waitTime;
 				}
 			});
@@ -48,7 +32,6 @@ class Client {
 
 module.exports = {
 	Client,
-	RetrySettings,
 	NewClient: (retrySettings = new RetrySettings(), logger = console) => {
 		return new Client(retrySettings, logger);
 	}
