@@ -20,7 +20,8 @@
     "perf_hooks": "^0.0.1",
     "proxy-from-env": "^1.1.0",
     "regenerator-runtime": "^0.13.11",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "winston": "^3.10.0"
   },
   "scripts": {
     "clean": "rm -rf lib",
