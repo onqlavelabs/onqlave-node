@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
+    "allowJs": true,
+    "checkJs": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "moduleResolution": "node",
+    "newLine": "LF",
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "lib",
+    "lib": [
+      "es5",
+      "es2015.promise",
+      "dom",
+    ]
+  },
+  "includes": [
+    "onqlave/**",
+  ],
+  "exclude": [
+    "node_modules",
+    "lib",
+    "examples"
+  ]
+}

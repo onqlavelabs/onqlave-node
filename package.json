@@ -1,16 +1,9 @@
 {
   "name": "@onqlavelabs/onqlave-node",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "This node SDK is designed to help developers easily integrate Onqlave `Encryption As A Service` into their node backend.",
-  "main": "index.js",
-  "directories": {
-    "example": "examples",
-    "lib": "onqlave"
-  },
-  "files": [
-    "index.js",
-    "onqlave"
-  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "dependencies": {
     "@stablelib/xchacha20poly1305": "^1.0.1",
     "asynckit": "^0.4.0",
@@ -30,11 +23,19 @@
     "uuid": "^9.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf lib",
+    "build": "npm run clean && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint onqlave/**",
+    "lint:fix": "eslint onqlave/** --fix",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/onqlavelabs/onqlave-node.git"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
     "onqlave",
@@ -49,5 +50,13 @@
   "bugs": {
     "url": "https://github.com/onqlavelabs/onqlave-node/issues"
   },
-  "homepage": "https://github.com/onqlavelabs/onqlave-node#readme"
+  "homepage": "https://github.com/onqlavelabs/onqlave-node#readme",
+  "devDependencies": {
+    "@types/node": "^16.18.39",
+    "@types/node-forge": "^1.3.3",
+    "@types/uuid": "^9.0.2",
+    "eslint": "^8.45.0",
+    "husky": "^8.0.0",
+    "typescript": "^5.1.6"
+  }
 }

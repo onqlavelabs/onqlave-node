@@ -1,19 +1,19 @@
-const { v4 } = require('uuid')
+const { v4 } = require("uuid");
 
 class IDService {
-  constructor(randomService) {
-    this.randomService = randomService;
-  }
+	constructor(randomService) {
+		this.randomService = randomService;
+	}
 
-  newStringID() {
-    return v4();
-  }
+	newStringID() {
+		return v4();
+	}
 
-  newKeyID() {
-    return this.randomService.getRandomUint32();
-  }
+	newKeyID() {
+		return this.randomService.getRandomUint32();
+	}
 }
 
 module.exports =  {
-  IDService,
+	IDService,
 };
