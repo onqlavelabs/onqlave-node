@@ -17,12 +17,14 @@ const {PlainStreamProcessor} = require("./plainstreamprocessort");
 const {AlgorithmSerialiser} = require("./algorithmserialiser");
 const {Credential} = require("../contracts/credential");
 const {RetrySettings} = require("../contracts/retrysettings");
-const {Logger} = require("../utils/logger");
+const {AppLogger} = require("../utils/logger");
 
 /**
  * @class
  * @typedef {import('../contracts/credential').Credential} Credential
  * @typedef {import('../contracts/retrysettings').RetrySettings} RetrySettings
+ * @typedef {import('fs').ReadStream} ReadStream
+ * @typedef {import('fs').WriteStream} WriteStream
  */
 class Encryption {
 	/**
@@ -34,7 +36,7 @@ class Encryption {
      */
 	constructor(credential, retrySettings, arxURL, debug) {
 		const configuration = new Configuration(credential, retrySettings, arxURL, debug);
-		this.logger = new Logger(debug).initLogger();
+		this.logger = new AppLogger(debug).initLogger();
 		const randomService = new CPRNGService();
 		const idService = new IDService(randomService);
 		const keyManager = new KeyManager(configuration, randomService, this.logger);
@@ -55,6 +57,13 @@ class Encryption {
 	}
 
 
+	/**
+	 *
+	 * @param plainStream {ReadStream}
+	 * @param cipherStream {WriteStream}
+	 * @param associatedData {Uint8Array | Buffer}
+	 * @returns {Promise<void>}
+	 */
 	async encryptStream(plainStream, cipherStream, associatedData) {
 		const operation = "EncryptStream";
 		const start = performance.now();
@@ -82,6 +91,13 @@ class Encryption {
 		}
 	}
 
+	/**
+	 *
+	 * @param cipherStream {ReadStream}
+	 * @param plainStream {WriteStream}
+	 * @param associatedData {Uint8Array | Buffer}
+	 * @returns {Promise<void>}
+	 */
 	async decryptStream(cipherStream, plainStream, associatedData) {
 		const operation = "DecryptStream";
 		const start = performance.now();

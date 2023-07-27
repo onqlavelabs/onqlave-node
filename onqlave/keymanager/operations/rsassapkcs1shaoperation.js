@@ -18,7 +18,4 @@ class RSASSAPKCS1SHA2562048KeyOperation extends WrappingKeyOperation {
 
 module.exports = {
 	RSASSAPKCS1SHA2562048KeyOperation,
-	NewRSASSAPKCS1SHA2562048KeyOperation: (factory) => {
-		return new RSASSAPKCS1SHA2562048KeyOperation(factory);
-	},
 };

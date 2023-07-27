@@ -1,8 +1,6 @@
-const axios = require("axios");
-const axiosRetry = require("axios-retry");
+const {default: axios} = require("axios");
+const {default: axiosRetry} = require("axios-retry");
 const {performance} = require("perf_hooks");
-const {RetrySettings} = require("../contracts/retrysettings");
-
 
 /**
  * @class
@@ -12,22 +10,22 @@ const {RetrySettings} = require("../contracts/retrysettings");
  */
 class Client {
 	/**
-	 *
-	 * @param retrySettings {RetrySettings}
-	 * @param logger
-	 */
+     *
+     * @param retrySettings {RetrySettings}
+     * @param logger
+     */
 	constructor(retrySettings, logger) {
 		this.retrySettings = retrySettings;
 		this.logger = logger;
 	}
 
 	/**
-	 *
-	 * @param resource {string}
-	 * @param body {EncryptionOpenRequest | DecryptionOpenRequest}
-	 * @param headers {Object.<string, string>}
-	 * @returns {Promise<any>}
-	 */
+     *
+     * @param resource {string}
+     * @param body {EncryptionOpenRequest | DecryptionOpenRequest}
+     * @param headers {Object.<string, string | number | undefined>}
+     * @returns {Promise<any>}
+     */
 	async post(resource, body, headers) {
 		const operation = "Http";
 		this.logger.debug(`[onqlave] SDK: ${operation} - Http operation started`);

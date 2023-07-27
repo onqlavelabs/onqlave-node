@@ -19,9 +19,21 @@ class Configuration {
 
 	}
 
+	/**
+	 *
+	 * @param arxURL {string}
+	 */
 	extractArxURL(arxURL) {
 		const index = arxURL.lastIndexOf("/");
+		/**
+		 *
+		 * @type {string}
+		 */
 		this.arxUrl = arxURL.substring(0, index);
+		/**
+		 *
+		 * @type {string}
+		 */
 		this.arxId = arxURL.substring(index + 1);
 	}
 }
