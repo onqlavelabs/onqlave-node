@@ -47,24 +47,32 @@ The [Onqlave Node](https://github.com/onqlavelabs/onqlave-node) module is used t
 To use this module, the Onqlave client must first be initialized as follows.
 
 ```javascript
-const { Encryption, withCredential, withRetry, withArx, Credential, RetrySettings } = require('@onqlavelabs/onqlave-node');
-const { createReadStream, createWriteStream } = require('fs');
+const {Encryption, Credential, RetrySettings} = require('@onqlavelabs/onqlave-node');
+const {createReadStream, createWriteStream} = require('fs');
+const config = require('CHANGE_YOUR_CONFIGURATION.json');
+
 ```
-Or using ES modules
+Add information in the file configuration `.json` following by below:
 
-```javascript
-import { Encryption, withCredential, withRetry, withArx, Credential, RetrySettings }  from '@onqlavelabs/onqlave-node';
-import { createReadStream, createWriteStream } from 'fs';
-
-const arxOption = withArx("<arx_url>"); //This is the Arx URL retruned of the API Key created during setup. Keep in in a safe place.
-const apiKey = "<api_access_key>"       //This is the API Access Key returned of the API Key created during setup. Keep in in a safe place.
-const signingKey = "<api_signing_key>"  //This is the API Signing Key retruned of the API Key created during setup. Keep in in a safe place.
-const secretKey = "<api_secret_key>"    //This is the API Secret Key retruned of the API Key created during setup. Keep in in a safe place.
-const credentialOption = withCredential(new Credential(apiKey, signingKey, secretKey));
-const retryOption = withRetry(new RetrySettings(2, 400, 2000));
-
-const service = new Encryption(arxOption, credentialOption, retryOption);
+```json
+{
+"accessKey":"",		This is the API Access Key returned of the API Key created during setup. Keep in in a safe place.
+"signingKey": "",	This is the API Signing Key retruned of the API Key created during setup. Keep in in a safe place.
+"secretKey": "",	This is the API Secret Key retruned of the API Key created during setup. Keep in in a safe place.
+"arxURL": "",		This is the Arx URL retruned of the API Key created during setup. Keep in in a safe place.
+"maxRetries": 3,	Number of times to retry calling server endpoints in case of connection issue
+"waitTime": 30,		How long to wait between each retry
+"maxWaitTime": 30,	How long to wait in total for operation to finish
+"debug": false,		Default false - disable debug, true enable debug
+}
 ```
+Initial Encryption
+````node
+    const credential = new Credential(config.accessKey, config.signingKey, config.secretKey);
+    const retrySettings = new RetrySettings(config.maxRetries, config.waitTime, config.maxWaitTime);
+    // Initial encryption service
+    const encryptionService = new Encryption(credential, retrySettings, config.arxURL, config.debug);
+````
 
 All Onqlave APIs must be invoked using a `Encryption` instance.
 
@@ -75,11 +83,11 @@ To encrypt data, use the **Encrypt(plainData, associatedData)** method of the `E
 ```javascript
 
 //Initilise the new encryption service using configurations as per [Usage]
-const service = new Encryption(arxOption, credentialOption, retryOption);
+const encryptionService = new Encryption(credential, retrySettings, config.arxURL, config.debug);
 
 const plainData = Buffer.from("This is the plain data");
-const additionalData = Buffer.from("This is to authenticated not to encrypt"); //This can be an arbitrary piece of information you can use to for added security purpose.
-const cipherData = await service.Encrypt(plainData, associatedData);
+const additionalData = Buffer.from("This is to authenticated not to encrypt");
+const cipherData = await encryptionService.encrypt(plainData, additionalData);
 ```
 
 
@@ -89,11 +97,11 @@ To decrypt data, use the **Decrypt(cipherData, associatedData)** method of the `
 ```javascript
 
 //Initilise the new encryption service using configurations as per [Usage]
-const service = new Encryption(arxOption, credentialOption, retryOption);
+const encryptionService = new Encryption(credential, retrySettings, config.arxURL, config.debug);
 
 const cipherData = Buffer.from("this data is already encrypted using `Encrypt` method")
 const additionalData = Buffer.from("This is to authenticated not to encrypt"); //This can be an arbitrary piece of information you can use to for added security purpose.
-const plainData = await service.Decrypt(cipherData, associatedData);
+const plainData = await encryptionService.Decrypt(cipherData, associatedData);
 ```
 
 ### Encrypt Stream
@@ -104,12 +112,11 @@ To encrypt stream of data, use the **encryptStream(plainStream, cipherStream, as
 ```javascript
 
 //Initilise the new encryption service using configurations as per [Usage]
-const service = new Encryption(arxOption, credentialOption, retryOption);
-
+const encryptionService = new Encryption(credential, retrySettings, config.arxURL, config.debug);
 const plainStream = createReadStream("<file or network stream you are wishing to encrypt>", { highWaterMark: 64 * 1024 });
 const cipherStream = createWriteStream("<file or network stream you are whishing to stream the encrypted data to>", { encoding: 'binary' });
 const associatedData = Buffer.from("this data needs to be authenticated, but not encrypted"); //This can be an arbitrary piece of information you can use to for added security purpose.
-await service.encryptStream(plainStream, cipherStream, additionalData);
+await encryptionService.encryptStream(plainStream, cipherStream, additionalData);
 plainStream.close();
 cipherStream.close();
 ```
@@ -121,12 +128,12 @@ To decrypt data, use the **decryptStream(cipherStream, plainStream, associatedDa
 ```javascript
 
 //Initilise the new encryption service using configurations as per [Usage]
-const service = new Encryption(arxOption, credentialOption, retryOption);
+const encryptionService = new Encryption(credential, retrySettings, config.arxURL, config.debug);
 
 const cipherStream = createReadStream("<file or network stream you are wishing to decrypt>", { encoding: 'binary' });
 const plainStream = createWriteStream("<file or network stream you are whishing to stream the decrypted data to>", { highWaterMark: 64 * 1024 });
 const associatedData = Buffer.from("this data needs to be authenticated, but not encrypted"); //This can be an arbitrary piece of information you can use to for added security purpose.
-await service.decryptStream(cipherStream, plainStream, additionalData);
+await encryptionService.decryptStream(cipherStream, plainStream, additionalData);
 plainStream.close();
 cipherStream.close();
 ```
