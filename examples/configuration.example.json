@@ -1,0 +1,10 @@
+{
+  "accessKey":"",
+  "signingKey": "",
+  "secretKey": "",
+  "arxURL": "",
+  "maxRetries": 3,
+  "waitTime": 30,
+  "maxWaitTime": 30,
+  "debug": false
+}
