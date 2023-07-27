@@ -16,7 +16,7 @@ class Client {
 	 * @param retrySettings {RetrySettings}
 	 * @param logger
 	 */
-	constructor(retrySettings = new RetrySettings(), logger = console) {
+	constructor(retrySettings, logger) {
 		this.retrySettings = retrySettings;
 		this.logger = logger;
 	}
@@ -30,7 +30,7 @@ class Client {
 	 */
 	async post(resource, body, headers) {
 		const operation = "Http";
-		this.logger.info(`[onqlave] SDK: ${operation} - Http operation started`);
+		this.logger.debug(`[onqlave] SDK: ${operation} - Http operation started`);
 		const start = performance.now();
 
 		axiosRetry(axios, {
@@ -39,14 +39,11 @@ class Client {
 			}
 		});
 		const response = await axios.post(resource, body, {headers});
-		this.logger.info(`[onqlave] SDK: ${operation} - Http operation finished successfully: operation took ${performance.now() - start} ms`);
+		this.logger.debug(`[onqlave] SDK: ${operation} - Http operation finished successfully: operation took ${performance.now() - start} ms`);
 		return response.data;
 	}
 }
 
 module.exports = {
 	Client,
-	NewClient: (retrySettings = new RetrySettings(), logger = console) => {
-		return new Client(retrySettings, logger);
-	}
 };

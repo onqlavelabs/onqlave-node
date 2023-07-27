@@ -1,4 +1,4 @@
-const {NewClient} = require("./client");
+const {Client} = require("./client");
 const {OnqlaveError, ErrorCodes} = require("../errors/errors");
 const {performance} = require("perf_hooks");
 
@@ -16,8 +16,8 @@ class Connection {
 	 * @param hasher {Hasher}
 	 * @param logger
 	 */
-	constructor(configuration, hasher, logger = console) {
-		this.client = NewClient(configuration.retrySettings, logger);
+	constructor(configuration, hasher, logger) {
+		this.client = new Client(configuration.retrySettings, logger);
 		this.hasher = hasher;
 		this.logger = logger;
 		this.configuration = configuration;
@@ -32,7 +32,7 @@ class Connection {
 	async post(resource, body) {
 		const operation = "Post";
 		const start = performance.now();
-		this.logger.info(`[onqlave] SDK: ${operation} - Sending request started`);
+		this.logger.debug(`[onqlave] SDK: ${operation} - Sending request started`);
 		const urlString = `${this.configuration.arxUrl}/${resource}`;
 		const arxId = this.configuration.arxId;
 		const now = Math.floor(Date.now() / 1000);
@@ -64,7 +64,7 @@ class Connection {
 
 		try {
 			const response = await this.client.post(urlString, body, headers);
-			this.logger.info(`[onqlave] SDK: ${operation} - Sending request finished successfully: operation took ${performance.now() - start} ms`);
+			this.logger.debug(`[onqlave] SDK: ${operation} - Sending request finished successfully: operation took ${performance.now() - start} ms`);
 			return response;
 		} catch (error) {
 			this.logger.error(JSON.stringify(error));
@@ -75,7 +75,4 @@ class Connection {
 
 module.exports = {
 	Connection,
-	NewConnection: (configuration, hasher, logger = console) => {
-		return new Connection(configuration, hasher, logger);
-	}
 };

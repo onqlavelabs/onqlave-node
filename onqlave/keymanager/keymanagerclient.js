@@ -6,25 +6,23 @@ const {EncryptionOpenRequest, DecryptionOpenRequest} = require("../contracts/req
 const {OnqlaveError, ErrorCodes} = require("../errors/errors");
 const {Algorithms, KeyManagerClient} = require("./types/types");
 const {performance} = require("perf_hooks");
-
 const Resources = {
 	ENCRYPT_RESOURCE_URL: "oe2/keymanager/encrypt",
 	DECRYPT_RESOURCE_URL: "oe2/keymanager/decrypt"
 };
 
 class KeyManager extends KeyManagerClient {
-	constructor(configuration, randomService) {
+	constructor(configuration, randomService, logger) {
 		super();
 		const hasher = NewHasher();
-		console.log(configuration);
-		const httpClient = new Connection(configuration, hasher, console);
+		const httpClient = new Connection(configuration, hasher, logger);
 		const rsaSSAPKCS1KeyFactory = NewRSASSAPKCS1SHAKeyFactory(randomService);
 		const operations = {
 			[Algorithms.RsaSsapkcs12048sha256f4]: NewRSASSAPKCS1SHA2562048KeyOperation(rsaSSAPKCS1KeyFactory)
 		};
 		this.keyManager = httpClient;
 		this.configuration = configuration;
-		this.logger = console;
+		this.logger = logger;
 		this.operations = operations;
 	}
 
@@ -32,9 +30,13 @@ class KeyManager extends KeyManagerClient {
 		const operation = "FetchEncryptionKey";
 		const start = performance.now();
 		const request = new EncryptionOpenRequest();
-		this.logger.log(`[onqlave] SDK: ${operation} - Fetching encryption key`);
-		const response = await this.keyManager.post(Resources.ENCRYPT_RESOURCE_URL, request);
-
+		this.logger.debug(`[onqlave] SDK: ${operation} - Fetching encryption key`);
+		let response;
+		try {
+			response = await this.keyManager.post(Resources.ENCRYPT_RESOURCE_URL, request);
+		} catch (e) {
+			throw e;
+		}
 		const {data_key, wrapping_key, security_model} = response;
 		const edk = Buffer.from(data_key.encrypted_data_key, "base64");
 		const wdk = data_key.wrapped_data_key;
@@ -42,15 +44,8 @@ class KeyManager extends KeyManagerClient {
 		const fp = wrapping_key.key_fingerprint;
 		const wrappingAlgorithm = security_model.wrapping_algo;
 		const algo = security_model.algo;
-		const dk = await this.unwrapKey(
-			wrappingAlgorithm,
-			operation,
-			wdk,
-			epk,
-			fp,
-			this.configuration.credential.secretKey
-		);
-		this.logger.info(`[onqlave] SDK: ${operation} - Fetched encryption key: operation took ${performance.now() - start} ms`);
+		const dk = await this.unwrapKey(wrappingAlgorithm, operation, wdk, epk, fp, this.configuration.credential.secretKey);
+		this.logger.debug(`[onqlave] SDK: ${operation} - Fetched encryption key: operation took ${performance.now() - start} ms`);
 		return {edk, dk, algo};
 	}
 
@@ -58,7 +53,7 @@ class KeyManager extends KeyManagerClient {
 		const operation = "FetchDecryptionKey";
 		const start = performance.now();
 		const request = new DecryptionOpenRequest(Buffer.from(edk).toString("base64"));
-		this.logger.info(`[onqlave] SDK: ${operation} - Fetching decryption key`);
+		this.logger.debug(`[onqlave] SDK: ${operation} - Fetching decryption key`);
 		const response = await this.keyManager.post(Resources.DECRYPT_RESOURCE_URL, request);
 		const {data_key, wrapping_key, security_model} = response;
 		const wdk = data_key.wrapped_data_key;
@@ -75,7 +70,7 @@ class KeyManager extends KeyManagerClient {
 			this.configuration.credential.secretKey
 		);
 
-		this.logger.info(`[onqlave] SDK: ${operation} - Fetched decryption key: operation took ${performance.now() - start} ms`);
+		this.logger.debug(`[onqlave] SDK: ${operation} - Fetched decryption key: operation took ${performance.now() - start} ms`);
 		return dk;
 	}
 
@@ -91,6 +86,7 @@ class KeyManager extends KeyManagerClient {
 		}
 		const dk = await primitive.unwrapKey(wdk, epk, fp, password);
 		if (!dk) {
+			this.logger.error(String.format("[onqlave] SDK: %s - Failed unwrap key", operation));
 			throw OnqlaveError.newOnqlaveErrorWrapf(ErrorCodes.Server, null, `[onqlave] SDK: ${operation} - Failed unwrapping encryption key`);
 		}
 		return dk;
@@ -99,8 +95,7 @@ class KeyManager extends KeyManagerClient {
 
 
 module.exports = {
-	KeyManager,
-	NewKeyManager: (configuration, randomService) => {
-		return new KeyManager(configuration, randomService);
+	KeyManager, NewKeyManager: (configuration, randomService,logger) => {
+		return new KeyManager(configuration, randomService,logger);
 	}
 };
