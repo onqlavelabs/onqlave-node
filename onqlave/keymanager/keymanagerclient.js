@@ -1,7 +1,7 @@
 const {Connection} = require("../connection/connection");
-const {NewHasher} = require("../utils/hasher");
-const {NewRSASSAPKCS1SHAKeyFactory} = require("./factories/rsassapkcs1shafactory");
-const {NewRSASSAPKCS1SHA2562048KeyOperation} = require("./operations/rsassapkcs1shaoperation");
+const {Hasher} = require("../utils/hasher");
+const {RSASSAPKCS1SHAKeyFactory} = require("./factories/rsassapkcs1shafactory");
+const {RSASSAPKCS1SHA2562048KeyOperation} = require("./operations/rsassapkcs1shaoperation");
 const {EncryptionOpenRequest, DecryptionOpenRequest} = require("../contracts/requests/requests");
 const {OnqlaveError, ErrorCodes} = require("../errors/errors");
 const {Algorithms, KeyManagerClient} = require("./types/types");
@@ -14,11 +14,11 @@ const Resources = {
 class KeyManager extends KeyManagerClient {
 	constructor(configuration, randomService, logger) {
 		super();
-		const hasher = NewHasher();
+		const hasher = new Hasher();
 		const httpClient = new Connection(configuration, hasher, logger);
-		const rsaSSAPKCS1KeyFactory = NewRSASSAPKCS1SHAKeyFactory(randomService);
+		const rsaSSAPKCS1KeyFactory = new RSASSAPKCS1SHAKeyFactory(randomService);
 		const operations = {
-			[Algorithms.RsaSsapkcs12048sha256f4]: NewRSASSAPKCS1SHA2562048KeyOperation(rsaSSAPKCS1KeyFactory)
+			[Algorithms.RsaSsapkcs12048sha256f4]: new RSASSAPKCS1SHA2562048KeyOperation(rsaSSAPKCS1KeyFactory)
 		};
 		this.keyManager = httpClient;
 		this.configuration = configuration;
@@ -95,7 +95,5 @@ class KeyManager extends KeyManagerClient {
 
 
 module.exports = {
-	KeyManager, NewKeyManager: (configuration, randomService,logger) => {
-		return new KeyManager(configuration, randomService,logger);
-	}
+	KeyManager
 };

@@ -8,8 +8,8 @@ class CPRNGService {
 	}
 
 	getRandomUint32() {
-		const buf = Buffer.from(this.getRandomBytes(4), "binary");
-		return buf.readUInt32BE(0);
+		const randomBuffer = this.getRandomBytes(4);
+		return randomBuffer.readUInt32BE(0);
 	}
 }
 

@@ -60,7 +60,4 @@ class RSASSAPKCS1SHAKeyFactory extends WrappingKeyFactory {
 
 module.exports =  {
 	RSASSAPKCS1SHAKeyFactory,
-	NewRSASSAPKCS1SHAKeyFactory: (randomService) => {
-		return new RSASSAPKCS1SHAKeyFactory(randomService);
-	}
 };

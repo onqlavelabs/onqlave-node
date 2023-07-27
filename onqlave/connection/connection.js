@@ -38,7 +38,7 @@ class Connection {
 		const now = Math.floor(Date.now() / 1000);
 		const content = JSON.stringify(body);
 		const contentLen = content.length;
-		const digest = await this.hasher.digest(body);
+		const digest = this.hasher.digest(body);
 		const headersToSign = {
 			"ONQLAVE-API-KEY": this.configuration.credential.accessKey,
 			"ONQLAVE-ARX": arxId,
@@ -48,7 +48,7 @@ class Connection {
 			"ONQLAVE-DIGEST": digest,
 			"ONQLAVE-VERSION": "0.1",
 		};
-		const signature = await this.hasher.sign(headersToSign, this.configuration.credential.signingKey);
+		const signature = this.hasher.sign(headersToSign, this.configuration.credential.signingKey);
 		const headers = {
 			"Content-Type": "application/json",
 			"ONQLAVE-API-KEY": this.configuration.credential.accessKey,

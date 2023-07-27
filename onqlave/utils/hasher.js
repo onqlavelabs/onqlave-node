@@ -25,7 +25,7 @@ class Hasher {
 
 	/**
 	 *
-	 * @param headers {Object.<string, string>}
+	 * @param headers {Object.<string, string | number | undefined>}
 	 * @param signingKey {string}
 	 * @returns {string}
 	 */
@@ -49,7 +49,4 @@ class Hasher {
 
 module.exports = {
 	Hasher,
-	NewHasher: () => {
-		return new Hasher();
-	},
 };

@@ -1,10 +1,26 @@
 const {createLogger, format, config, transports} = require("winston");
 
-class Logger {
+/**
+ * @class
+ * @typedef {import('winston').Logger} Logger
+ */
+class AppLogger {
+	/**
+	 *
+	 * @param debug {boolean}
+	 */
 	constructor(debug) {
+		/**
+		 *
+		 * @type {boolean}
+		 */
 		this.debug = debug;
 	}
 
+	/**
+	 *
+	 * @returns {Logger}
+	 */
 	initLogger() {
 		const LEVEL_LOG_DEBUG = "debug";
 		const LEVEL_LOG_DEFAULT = "error";
@@ -34,5 +50,5 @@ class Logger {
 }
 
 module.exports = {
-	Logger,
+	AppLogger,
 };

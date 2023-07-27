@@ -20,11 +20,12 @@
     "perf_hooks": "^0.0.1",
     "proxy-from-env": "^1.1.0",
     "regenerator-runtime": "^0.13.11",
+    "rimraf": "^5.0.1",
     "uuid": "^9.0.0",
     "winston": "^3.10.0"
   },
   "scripts": {
-    "clean": "rm -rf lib",
+    "clean": "rimraf lib",
     "build": "npm run clean && tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint onqlave/**",
