@@ -65,11 +65,8 @@ const encryptionService = new Encryption(credential, retrySettings, config.arxUR
 ````
 
 All Onqlave APIs must be invoked using a `Encryption` instance.
-
 ### Encrypt
-
-To encrypt data, use the **Encrypt(plainData, associatedData)** method of the `Encryption` service. The **plainText** parameter is the `Buffer` representation of data you are wishing to encrypt. The **associatedData** parameter the `Buffer` representation of associated data which can be used to improve the authenticity of the data (it is not mandatory), as shown below.
-
+To encrypt data, use the **encrypt(plainData, associatedData)** method of the `Encryption` service. The **plainData** parameter is the `Buffer` representation of data you are wishing to encrypt. The **associatedData** parameter the `Buffer` representation of associated data which can be used to improve the authenticity of the data (it is not mandatory), as shown below.
 ```javascript
 //Initilise the new encryption service using configurations as per [Usage]
 const encryptionService = new Encryption(credential, retrySettings, config.arxURL, config.debug);
@@ -79,24 +76,18 @@ const additionalData = Buffer.from("This is to authenticated not to encrypt");
 const cipherData = await encryptionService.encrypt(plainData, additionalData);
 ```
 
-
 ### Decrypt
-To decrypt data, use the **Decrypt(cipherData, associatedData)** method of the `Encryption` service. The **cipherData** parameter is the `Buffer` representation of data you are wishing to decrypt (previousely encrypted). The **associatedData** parameter the `Buffer` representation of associated data which can be used to improve the authenticity of the data (it is not mandatory), as shown below.
-
+To decrypt data, use the **decrypt(cipherData, associatedData)** method of the `Encryption` service. The **cipherData** parameter is the `Buffer` representation of data you are wishing to decrypt (previousely encrypted). The **associatedData** parameter the `Buffer` representation of associated data which can be used to improve the authenticity of the data (it is not mandatory), as shown below.
 ```javascript
 //Initilise the new encryption service using configurations as per [Usage]
 const encryptionService = new Encryption(credential, retrySettings, config.arxURL, config.debug);
-
 const cipherData = Buffer.from("this data is already encrypted using `Encrypt` method")
 const additionalData = Buffer.from("This is to authenticated not to encrypt"); //This can be an arbitrary piece of information you can use to for added security purpose.
-const plainData = await encryptionService.Decrypt(cipherData, associatedData);
+const plainData = await encryptionService.decrypt(cipherData, associatedData);
 ```
 
 ### Encrypt Stream
-
 To encrypt stream of data, use the **encryptStream(plainStream, cipherStream, associatedData)** method of the `Encryption` service. The **plainStream** parameter is the `ReadStream` stream of data you are wishing to encrypt. The **cipherStream** parameter is the `WriteStream` stream you are wishing to write the cipher data to. The **associatedData** parameter the `Buffer` representation of associated data which can be used to improve the authenticity of the data (it is not mandatory), as shown below.
-
-
 ```javascript
 //Initilise the new encryption service using configurations as per [Usage]
 const encryptionService = new Encryption(credential, retrySettings, config.arxURL, config.debug);
@@ -108,10 +99,8 @@ plainStream.close();
 cipherStream.close();
 ```
 
-
 ### Decrypt Stream
-To decrypt data, use the **decryptStream(cipherStream, plainStream, associatedData)** method of the `Encryption` service. The **cipherStream** parameter is the `ReadStream` stream of data you are wishing to decrypt and it was originally encrypted using [EncryptStream](#encrypt-stream). The **plainStream** parameter is the `WriteStream` stream you are wishing to write the plain data back to. The **associatedData** parameter the `Buffer` representation of associated data which can be used to improve the authenticity of the data (it is not mandatory), as shown below.
-
+To decrypt stream of data, use the **decryptStream(cipherStream, plainStream, associatedData)** method of the `Encryption` service. The **cipherStream** parameter is the `ReadStream` stream of data you are wishing to decrypt and it was originally encrypted using [EncryptStream](#encrypt-stream). The **plainStream** parameter is the `WriteStream` stream you are wishing to write the plain data back to. The **associatedData** parameter the `Buffer` representation of associated data which can be used to improve the authenticity of the data (it is not mandatory), as shown below.
 ```javascript
 //Initilise the new encryption service using configurations as per [Usage]
 const encryptionService = new Encryption(credential, retrySettings, config.arxURL, config.debug);
@@ -124,5 +113,4 @@ cipherStream.close();
 ```
 
 ## Reporting a Vulnerability
-
 If you discover a potential security issue in this project, please reach out to us at security@onqlave.com. Please do not create public GitHub issues or Pull Requests, as malicious actors could potentially view them.
