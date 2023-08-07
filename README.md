@@ -2,7 +2,7 @@
 This node SDK is designed to help developers easily integrate Onqlave `Encryption As A Service` into their node backend.
 
 [![CI](https://img.shields.io/static/v1?label=CI&message=passing&color=green?style=plastic&logo=github)](https://github.com/onqlavelabs/onqlave-node/actions)
-[![GitHub release](https://badge.fury.io/js/onqlave-node.svg)](https://www.npmjs.com/package/onqlave-node)
+[![GitHub release](https://badge.fury.io/js/@onqlavelabs%2Fonqlave-node.svg)](https://npmjs.com/package/@onqlavelabs%2Fonqlave-node)
 [![License](https://img.shields.io/github/license/onqlavelabs/onqlave-node)](https://github.com/onqlavelabs/onqlave-node/blob/main/LICENSE)
 
 
