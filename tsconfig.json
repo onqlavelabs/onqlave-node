@@ -28,5 +28,10 @@
     "node_modules",
     "lib",
     "examples"
-  ]
+  ],
+  "typeAcquisition": {
+    "include": [
+      "jest"
+    ]
+  },
 }

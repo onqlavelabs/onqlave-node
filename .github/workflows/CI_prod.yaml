@@ -1,0 +1,39 @@
+name: Node CI/CD
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@onqlavelabs'
+          always-auth: 'true'
+      - name: Install Dependencies
+        run: npm ci
+      - name: Node Test
+        run: npm test
+        env:
+          AES_128_ACCESS_KEY: ${{ secrets.AES_128_ACCESS_KEY_PROD }}
+          AES_128_ARX_URL: ${{ secrets.AES_128_ARX_URL_PROD }}
+          AES_128_SIGNING_KEY: ${{ secrets.AES_128_SIGNING_KEY_PROD }}
+          AES_128_SECRET_KEY: ${{ secrets.AES_128_SECRET_KEY_PROD }}
+
+          AES_256_ACCESS_KEY: ${{ secrets.AES_256_ACCESS_KEY_PROD }}
+          AES_256_ARX_URL: ${{ secrets.AES_256_ARX_URL_PROD }}
+          AES_256_SIGNING_KEY: ${{ secrets.AES_256_SIGNING_KEY_PROD }}
+          AES_256_SECRET_KEY: ${{ secrets.AES_256_SECRET_KEY_PROD }}
+
+          XCHACHA_ACCESS_KEY: ${{ secrets.XCHACHA_ACCESS_KEY_PROD }}
+          XCHACHA_ARX_URL: ${{ secrets.XCHACHA_ARX_URL_PROD }}
+          XCHACHA_SIGNING_KEY: ${{ secrets.XCHACHA_SIGNING_KEY_PROD }}
+          XCHACHA_SECRET_KEY: ${{ secrets.XCHACHA_SECRET_KEY_PROD }}
